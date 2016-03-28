@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2affceca-4f14-42f6-942f-fb099790e2c1" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9090/AthleteRegistration" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AthleteRegistration.xsd" MetadataType="Schema" ID="c1ea91e9-f96a-4bdf-b6be-01cb314d210c" SourceId="1" SourceUrl="http://localhost:9090/AthleteRegistration?xsd=xsd0" />
+    <MetadataFile FileName="AthleteRegistration1.xsd" MetadataType="Schema" ID="27425855-b2dd-4c48-842c-9124bbe3b80e" SourceId="1" SourceUrl="http://localhost:9090/AthleteRegistration?xsd=xsd1" />
+    <MetadataFile FileName="AthleteService.wsdl" MetadataType="Wsdl" ID="bb6caa35-29e5-466e-a982-037f5d406168" SourceId="1" SourceUrl="http://localhost:9090/AthleteRegistration?wsdl" />
+    <MetadataFile FileName="AthleteRegistration.disco" MetadataType="Disco" ID="b7a2f7d1-fcde-42a7-8262-3b33d03395f4" SourceId="1" SourceUrl="http://localhost:9090/AthleteRegistration?disco" />
+    <MetadataFile FileName="AthleteRegistration2.xsd" MetadataType="Schema" ID="9645fb39-a46d-42f9-b147-0330471937a7" SourceId="1" SourceUrl="http://localhost:9090/AthleteRegistration?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
