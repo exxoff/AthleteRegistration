@@ -46,7 +46,7 @@ namespace AthleteRegistrationService
             return text;
         }
 
-        public static Athlete BibExists(int Bib)
+        public static AthleteDto BibExists(int Bib)
         {
 
             

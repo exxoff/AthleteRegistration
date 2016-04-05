@@ -16,8 +16,16 @@ namespace AthleteRegistration.UserTypes
         private string lastName;
         private string course;
         private string eMailAddress;
-        private bool isSaved;
+        private bool? isSaved;
         private int athleteId;
+        private string saveMessage;
+
+        public string SaveMessage
+        {
+            get { return saveMessage; }
+            set { saveMessage = value; OnPropertyChanged(); }
+        }
+
 
 
         public int BIB
@@ -34,7 +42,7 @@ namespace AthleteRegistration.UserTypes
         }
 
 
-        public bool IsSaved
+        public bool? IsSaved
         {
             get { return isSaved; }
             set { isSaved = value; OnPropertyChanged(); }

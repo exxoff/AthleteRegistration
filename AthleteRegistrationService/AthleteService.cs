@@ -47,7 +47,7 @@ namespace AthleteRegistrationService
             bool wasMutexCreatedNew = false;
             using (Mutex onlyOne = new Mutex(true, "MutexWait", out wasMutexCreatedNew))
             {
-                Console.WriteLine("Checking queue...");
+                //Console.WriteLine("Checking queue...");
                 if (wasMutexCreatedNew)
                 {
                     try

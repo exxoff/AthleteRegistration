@@ -8,53 +8,78 @@
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:converters="clr-namespace:AthleteRegistration.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="800"
+        Title="Athlete Registration" Height="380" Width="800"
                    BorderThickness="0" 
                       GlowBrush="Black"
                       ResizeMode="NoResize"
 
                       WindowTransitionsEnabled="False"
-                      WindowStartupLocation="CenterScreen">
+                      WindowStartupLocation="CenterScreen"
+                   Icon="Images/moif.ico">
     <Window.Resources>
         <converters:IsSavedConverter x:Key="IsSavedConverter"/>
+        <converters:ZeroToNullConverter x:Key="ZeroToNullConverter"/>
+
+        <Storyboard x:Key="ErrorAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(TextBlock.Opacity)"
+                             From="1" To="0" AutoReverse="false"
+                             Duration="0:0:5"
+                             Completed="AnimationCompleted"
+                             FillBehavior="Stop"
+                             >
+
+            </DoubleAnimation>
+        </Storyboard>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <GroupBox Header="Startnummer" FontSize="22" Margin="5">
-            <TextBox Text="{Binding BIB}" Margin="5" FontSize="20"/>
-        </GroupBox>
-        <GroupBox Header="Förnamn" FontSize="22" Margin="5" Grid.Column="1">
-            <TextBox Text="{Binding FirstName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
-        </GroupBox>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Arkiv">
+                <MenuItem Header="_Starta Server"/>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Startnummer" FontSize="22" Margin="5">
+                <TextBox Text="{Binding BIB,Converter={StaticResource ZeroToNullConverter}}" Margin="5" FontSize="20" />
+            </GroupBox>
+            <GroupBox Header="Förnamn" FontSize="22" Margin="5" Grid.Column="1">
+                <TextBox Text="{Binding FirstName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
+            </GroupBox>
 
-        <GroupBox Header="Efternamn" FontSize="22" Margin="5" Grid.Column="2">
-            <TextBox Text="{Binding LastName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
-        </GroupBox>
+            <GroupBox Header="Efternamn" FontSize="22" Margin="5" Grid.Column="2">
+                <TextBox Text="{Binding LastName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
+            </GroupBox>
 
-        <GroupBox Header="Klass" FontSize="22" Margin="5" Grid.Column="0" Grid.Row="1">
-            <StackPanel>
-                <RadioButton GroupName="Course" Content="Lång" IsChecked="True" Margin="5" FontSize="14" FontWeight="Bold"/>
-                <RadioButton GroupName="Course" Content="Kort" IsChecked="False" Margin="5" FontSize="14" FontWeight="Bold"/>
-            </StackPanel>
-        </GroupBox>
+            <GroupBox Header="Klass" FontSize="22" Margin="5" Grid.Column="0" Grid.Row="1">
+                <StackPanel>
+                    <RadioButton GroupName="Course" Content="Lång" IsChecked="True" Margin="5" FontSize="14" FontWeight="Bold"/>
+                    <RadioButton GroupName="Course" Content="Kort" IsChecked="False" Margin="5" FontSize="14" FontWeight="Bold"/>
+                </StackPanel>
+            </GroupBox>
 
-        <GroupBox Header="Epostadress (ej obligatorisk)" FontSize="22" Margin="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
-            <TextBox Text="{Binding EMailAddress, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
-        </GroupBox>
+            <GroupBox Header="Epostadress (ej obligatorisk)" FontSize="22" Margin="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                <TextBox Text="{Binding EMailAddress, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
+            </GroupBox>
 
-        <TextBlock Text="{Binding IsSaved, Converter={StaticResource IsSavedConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2">
-            
-        </TextBlock>
-        <Button Content="Spara" Click="Button_Click" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" FontSize="30"/>
+            <TextBlock Text="{Binding SaveMessage,NotifyOnTargetUpdated=True}" Foreground="{Binding IsSaved,Converter={StaticResource IsSavedConverter}}" FontSize="20" Grid.Row="2" Grid.ColumnSpan="3" Margin="5">
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                        <BeginStoryboard Storyboard="{StaticResource ErrorAnimation}"/>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
 
-    </Grid>
+            <Button Content="Spara" Click="Button_Click" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" FontSize="30"/>
+
+        </Grid>
+    </DockPanel>
 </metro:MetroWindow>

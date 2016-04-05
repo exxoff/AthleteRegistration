@@ -5,25 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace AthleteRegistration.Converters
 {
-    public class IsSavedConverter : IValueConverter
+    public class ZeroToNullConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null)
-            {
-                return (bool)value ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
-            }
 
-            return null;
+            
+            if(string.IsNullOrEmpty(value.ToString()))
+            {
+                return "";
+            }
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }
