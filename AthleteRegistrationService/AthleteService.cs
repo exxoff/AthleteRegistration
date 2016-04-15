@@ -78,7 +78,7 @@ namespace AthleteRegistrationService
                 {
                     AthleteQueue = new Queue<AthleteDto>();
                 }
-                //TODO: Check if BIB exist.
+
                 AthleteQueue.Enqueue(athlete);
                 return true;
             }

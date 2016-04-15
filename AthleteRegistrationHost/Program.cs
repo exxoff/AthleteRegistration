@@ -28,8 +28,8 @@ namespace AthleteRegistrationHost
                     var hostProxy = new AthleteRegistrationService.AthleteService();
 
                     hostProxy.StartQueueTimer();
-                    Console.WriteLine("Service listening on {0}",baseUri.ToString());
-                    Console.WriteLine("Press <Enter> to stop the service.");
+                    Console.WriteLine("Värden lyssnar på adress {0}",baseUri.ToString());
+                    Console.WriteLine("Tryck <Enter> för att stoppa servicen.");
                     Console.ReadLine();
                 }
 
@@ -38,25 +38,25 @@ namespace AthleteRegistrationHost
             catch (System.ServiceModel.CommunicationObjectFaultedException)
             {
                 Console.WriteLine("Kunde inte starta värden på {0}. Kontrollera så den är startad med Administratörsrättigheter (se manual).",baseUri.ToString());
-                Console.WriteLine("Press <Enter> to stop the service.");
+                Console.WriteLine("Tryck <Enter> för att stoppa servicen.");
                 Console.ReadLine();
             }
             catch (System.ServiceModel.AddressAlreadyInUseException)
             {
                 Console.WriteLine("Adressen {0} används redan",baseUri.ToString());
-                Console.WriteLine("Press <Enter> to stop the service.");
+                Console.WriteLine("Tryck <Enter> för att stoppa servicen.");
                 Console.ReadLine();
             }
             catch (System.ServiceModel.AddressAccessDeniedException)
             {
                 Console.WriteLine("Åtkomst till adressen {0} nekades. OBS! AthleteRegistrationHost måste startas med Administratörsrättigheter.",baseUri.ToString());
-                Console.WriteLine("Press <Enter> to stop the service.");
+                Console.WriteLine("Tryck <Enter> för att stoppa servicen.");
                 Console.ReadLine();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Press <Enter> to stop the service.");
+                Console.WriteLine("Tryck <Enter> för att stoppa servicen.");
                 Console.ReadLine();
             }
             finally
