@@ -62,7 +62,10 @@
   <ItemGroup>
     <Compile Include="AthleteDto.cs" />
     <Compile Include="DataHelper.cs" />
+    <Compile Include="Factory\DbFactory.cs" />
     <Compile Include="IAthleteService.cs" />
+    <Compile Include="Interfaces\IDbClient.cs" />
+    <Compile Include="LiteDBClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AthleteService.cs" />
   </ItemGroup>

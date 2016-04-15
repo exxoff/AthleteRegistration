@@ -8,7 +8,14 @@
       <xs:element minOccurs="0" name="EMailAddress" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Wave" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AthleteDto" nillable="true" type="tns:AthleteDto" />
+  <xs:complexType name="ArrayOfAthleteDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AthleteDto" nillable="true" type="tns:AthleteDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAthleteDto" nillable="true" type="tns:ArrayOfAthleteDto" />
 </xs:schema>

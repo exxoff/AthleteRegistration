@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AthleteRegistrationService.Factory;
+using AthleteRegistrationService.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,20 +15,17 @@ namespace AthleteRegistrationService
     {
 
         public static Queue<AthleteDto> AthleteQueue;
-        public string GeAthlete(int Bib)
-        {
-            throw new NotImplementedException();
-        }
+        public static IDbClient client;
 
         public AthleteDto GetNewAthlete()
         {
             return new AthleteDto();
         }
 
-        public void Save(AthleteDto athlete)
-        {
-            DataHelper.SaveAthlete(athlete);
-        }
+        //public void Save(AthleteDto athlete)
+        //{
+        //    DataHelper.SaveAthlete(athlete);
+        //}
 
         public void StartQueueTimer()
         {
@@ -47,6 +46,8 @@ namespace AthleteRegistrationService
             bool wasMutexCreatedNew = false;
             using (Mutex onlyOne = new Mutex(true, "MutexWait", out wasMutexCreatedNew))
             {
+                GetDbClient();
+                
                 //Console.WriteLine("Checking queue...");
                 if (wasMutexCreatedNew)
                 {
@@ -54,7 +55,9 @@ namespace AthleteRegistrationService
                     {
                         while (AthleteQueue.Count > 0)
                         {
-                            DataHelper.SaveAthlete(AthleteQueue.Dequeue());
+                            //DataHelper.SaveAthlete(AthleteQueue.Dequeue());
+                            client.Save(AthleteQueue.Dequeue());
+                            
                             
                         }
                     }
@@ -85,6 +88,35 @@ namespace AthleteRegistrationService
                 return false;
             }
             
+        }
+
+        public List<AthleteDto> GetAllAthletes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public AthleteDto ExistingAthlete(int Bib)
+        {
+
+            if(Bib == -1)
+            {
+                return null;
+            }
+
+            GetDbClient();
+            
+            return client.GetAthlete(Bib);
+
+            
+        }
+
+        private void GetDbClient()
+        {
+           if(client == null)
+            {
+                client = DbFactory.GetDbClient("LiteDB");
+            }
+                      
         }
     }
 }

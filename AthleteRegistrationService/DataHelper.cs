@@ -11,26 +11,26 @@ namespace AthleteRegistrationService
 {
     public static class DataHelper
     {
-        public static void SaveAthlete(AthleteDto athlete)
-        {
-            using(var db = new LiteDatabase("C:\\Temp\\_athletes.LiteDB"))
-            {
-                var col = db.GetCollection<AthleteDto>("Athletes");
-                if (col.Count(x => x.Bib.Equals(athlete.Bib)) > 0)
-                {
-                    col.Update(athlete);
-                    Console.WriteLine("{0} was updated", athlete.FirstName);
+        //public static void SaveAthlete(AthleteDto athlete)
+        //{
+        //    using(var db = new LiteDatabase("C:\\Temp\\_athletes.LiteDB"))
+        //    {
+        //        var col = db.GetCollection<AthleteDto>("Athletes");
+        //        if (col.Count(x => x.Bib.Equals(athlete.Bib)) > 0)
+        //        {
+        //            col.Update(athlete);
+        //            Console.WriteLine("{0} uppdaterades", athlete.FirstName);
                    
 
-                }
-                else
-                {
-                    col.Insert(athlete);
-                    Console.WriteLine("Ny deltagare, startummer {2}, {0} {1} lades till.", athlete.FirstName,athlete.LastName,athlete.Bib);
+        //        }
+        //        else
+        //        {
+        //            col.Insert(athlete);
+        //            Console.WriteLine("Ny deltagare, startummer {2}, {0} {1} lades till.", athlete.FirstName,athlete.LastName,athlete.Bib);
                     
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
         public static string ToTitleCase(this string text)
         {
@@ -46,21 +46,21 @@ namespace AthleteRegistrationService
             return text;
         }
 
-        public static AthleteDto BibExists(int Bib)
-        {
+        //public static AthleteDto BibExists(int Bib)
+        //{
 
             
-            using (var db = new LiteDatabase("C:\\Temp\\_athletes.LiteDB"))
-            {
-                var col = db.GetCollection<AthleteDto>("Athletes");
-                if (col.Count(x => x.Bib.Equals(Bib)) > 0)
-                {
+        //    using (var db = new LiteDatabase("C:\\Temp\\_athletes.LiteDB"))
+        //    {
+        //        var col = db.GetCollection<AthleteDto>("Athletes");
+        //        if (col.Count(x => x.Bib.Equals(Bib)) > 0)
+        //        {
 
-                }
-            }
+        //        }
+        //    }
 
-                    return null;
-        }
+        //            return null;
+        //}
 
         public static void LogError(string errorMessage,string innerException)
         {

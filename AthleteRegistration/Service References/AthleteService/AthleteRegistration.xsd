@@ -25,17 +25,29 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GeAthlete">
+  <xs:element name="GetAllAthletes">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllAthletesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AthleteRegistrationService" minOccurs="0" name="GetAllAthletesResult" nillable="true" type="q2:ArrayOfAthleteDto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExistingAthlete">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="Bib" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GeAthleteResponse">
+  <xs:element name="ExistingAthleteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GeAthleteResult" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AthleteRegistrationService" minOccurs="0" name="ExistingAthleteResult" nillable="true" type="q3:AthleteDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -47,7 +59,7 @@
   <xs:element name="GetNewAthleteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AthleteRegistrationService" minOccurs="0" name="GetNewAthleteResult" nillable="true" type="q2:AthleteDto" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AthleteRegistrationService" minOccurs="0" name="GetNewAthleteResult" nillable="true" type="q4:AthleteDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

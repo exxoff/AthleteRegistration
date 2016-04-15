@@ -12,9 +12,10 @@ namespace AthleteRegistrationService
     public class AthleteDto
     {
         [DataMember]
+        [BsonId]
         public int AthleteId { get; set; }
         [DataMember]
-        [BsonId]
+        //[BsonId]
         public int Bib { get; set; }
         [DataMember]
         public string FirstName { get; set; }
@@ -24,6 +25,9 @@ namespace AthleteRegistrationService
         public string Course { get; set; }
         [DataMember]
         public string EMailAddress { get; set; }
+        [DataMember]
+        public string Wave { get; set; }
+
 
         public DateTime Updated { get; set; }
     }

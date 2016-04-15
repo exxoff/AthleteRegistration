@@ -19,11 +19,17 @@
   <wsdl:message name="IAthleteService_StoreAthlete_OutputMessage">
     <wsdl:part name="parameters" element="tns:StoreAthleteResponse" />
   </wsdl:message>
-  <wsdl:message name="IAthleteService_GeAthlete_InputMessage">
-    <wsdl:part name="parameters" element="tns:GeAthlete" />
+  <wsdl:message name="IAthleteService_GetAllAthletes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAthletes" />
   </wsdl:message>
-  <wsdl:message name="IAthleteService_GeAthlete_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GeAthleteResponse" />
+  <wsdl:message name="IAthleteService_GetAllAthletes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAthletesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAthleteService_ExistingAthlete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExistingAthlete" />
+  </wsdl:message>
+  <wsdl:message name="IAthleteService_ExistingAthlete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExistingAthleteResponse" />
   </wsdl:message>
   <wsdl:message name="IAthleteService_GetNewAthlete_InputMessage">
     <wsdl:part name="parameters" element="tns:GetNewAthlete" />
@@ -40,9 +46,13 @@
       <wsdl:input wsam:Action="http://tempuri.org/IAthleteService/StoreAthlete" message="tns:IAthleteService_StoreAthlete_InputMessage" />
       <wsdl:output wsam:Action="http://tempuri.org/IAthleteService/StoreAthleteResponse" message="tns:IAthleteService_StoreAthlete_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GeAthlete">
-      <wsdl:input wsam:Action="http://tempuri.org/IAthleteService/GeAthlete" message="tns:IAthleteService_GeAthlete_InputMessage" />
-      <wsdl:output wsam:Action="http://tempuri.org/IAthleteService/GeAthleteResponse" message="tns:IAthleteService_GeAthlete_OutputMessage" />
+    <wsdl:operation name="GetAllAthletes">
+      <wsdl:input wsam:Action="http://tempuri.org/IAthleteService/GetAllAthletes" message="tns:IAthleteService_GetAllAthletes_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IAthleteService/GetAllAthletesResponse" message="tns:IAthleteService_GetAllAthletes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExistingAthlete">
+      <wsdl:input wsam:Action="http://tempuri.org/IAthleteService/ExistingAthlete" message="tns:IAthleteService_ExistingAthlete_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IAthleteService/ExistingAthleteResponse" message="tns:IAthleteService_ExistingAthlete_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetNewAthlete">
       <wsdl:input wsam:Action="http://tempuri.org/IAthleteService/GetNewAthlete" message="tns:IAthleteService_GetNewAthlete_InputMessage" />
@@ -69,8 +79,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GeAthlete">
-      <soap:operation soapAction="http://tempuri.org/IAthleteService/GeAthlete" style="document" />
+    <wsdl:operation name="GetAllAthletes">
+      <soap:operation soapAction="http://tempuri.org/IAthleteService/GetAllAthletes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExistingAthlete">
+      <soap:operation soapAction="http://tempuri.org/IAthleteService/ExistingAthlete" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

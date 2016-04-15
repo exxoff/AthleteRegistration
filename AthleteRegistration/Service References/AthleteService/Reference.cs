@@ -40,6 +40,9 @@ namespace AthleteRegistration.AthleteService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LastNameField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WaveField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -128,6 +131,19 @@ namespace AthleteRegistration.AthleteService {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Wave {
+            get {
+                return this.WaveField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WaveField, value) != true)) {
+                    this.WaveField = value;
+                    this.RaisePropertyChanged("Wave");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -154,11 +170,17 @@ namespace AthleteRegistration.AthleteService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/StoreAthlete", ReplyAction="http://tempuri.org/IAthleteService/StoreAthleteResponse")]
         System.Threading.Tasks.Task<bool> StoreAthleteAsync(AthleteRegistration.AthleteService.AthleteDto athlete);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/GeAthlete", ReplyAction="http://tempuri.org/IAthleteService/GeAthleteResponse")]
-        string GeAthlete(int Bib);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/GetAllAthletes", ReplyAction="http://tempuri.org/IAthleteService/GetAllAthletesResponse")]
+        AthleteRegistration.AthleteService.AthleteDto[] GetAllAthletes();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/GeAthlete", ReplyAction="http://tempuri.org/IAthleteService/GeAthleteResponse")]
-        System.Threading.Tasks.Task<string> GeAthleteAsync(int Bib);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/GetAllAthletes", ReplyAction="http://tempuri.org/IAthleteService/GetAllAthletesResponse")]
+        System.Threading.Tasks.Task<AthleteRegistration.AthleteService.AthleteDto[]> GetAllAthletesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/ExistingAthlete", ReplyAction="http://tempuri.org/IAthleteService/ExistingAthleteResponse")]
+        AthleteRegistration.AthleteService.AthleteDto ExistingAthlete(int Bib);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/ExistingAthlete", ReplyAction="http://tempuri.org/IAthleteService/ExistingAthleteResponse")]
+        System.Threading.Tasks.Task<AthleteRegistration.AthleteService.AthleteDto> ExistingAthleteAsync(int Bib);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/GetNewAthlete", ReplyAction="http://tempuri.org/IAthleteService/GetNewAthleteResponse")]
         AthleteRegistration.AthleteService.AthleteDto GetNewAthlete();
@@ -210,12 +232,20 @@ namespace AthleteRegistration.AthleteService {
             return base.Channel.StoreAthleteAsync(athlete);
         }
         
-        public string GeAthlete(int Bib) {
-            return base.Channel.GeAthlete(Bib);
+        public AthleteRegistration.AthleteService.AthleteDto[] GetAllAthletes() {
+            return base.Channel.GetAllAthletes();
         }
         
-        public System.Threading.Tasks.Task<string> GeAthleteAsync(int Bib) {
-            return base.Channel.GeAthleteAsync(Bib);
+        public System.Threading.Tasks.Task<AthleteRegistration.AthleteService.AthleteDto[]> GetAllAthletesAsync() {
+            return base.Channel.GetAllAthletesAsync();
+        }
+        
+        public AthleteRegistration.AthleteService.AthleteDto ExistingAthlete(int Bib) {
+            return base.Channel.ExistingAthlete(Bib);
+        }
+        
+        public System.Threading.Tasks.Task<AthleteRegistration.AthleteService.AthleteDto> ExistingAthleteAsync(int Bib) {
+            return base.Channel.ExistingAthleteAsync(Bib);
         }
         
         public AthleteRegistration.AthleteService.AthleteDto GetNewAthlete() {

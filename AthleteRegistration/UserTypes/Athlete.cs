@@ -14,11 +14,27 @@ namespace AthleteRegistration.UserTypes
         private int bib;
         private string firstName;
         private string lastName;
-        private string course;
+        
         private string eMailAddress;
         private bool? isSaved;
         private int athleteId;
         private string saveMessage;
+
+        private Course currentCourse;
+        public Course CurrentCourse
+        {
+            get { return currentCourse; }
+            set { currentCourse = value; OnPropertyChanged(); }
+        }
+
+
+        private bool? isCrew;
+        public bool? IsCrew
+        {
+            get { return isCrew; }
+            set { isCrew = value; OnPropertyChanged(); }
+        }
+
 
         public string SaveMessage
         {
@@ -62,13 +78,6 @@ namespace AthleteRegistration.UserTypes
         {
             get { return lastName; }
             set { lastName = value; OnPropertyChanged(); }
-        }
-
-
-        public string Course
-        {
-            get { return course; }
-            set { course = value; OnPropertyChanged(); }
         }
 
 

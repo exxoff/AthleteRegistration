@@ -19,7 +19,10 @@ namespace AthleteRegistrationService
         bool StoreAthlete(AthleteDto athlete);
 
         [OperationContract]
-        string GeAthlete(int Bib);
+        List<AthleteDto> GetAllAthletes();
+
+        [OperationContract]
+        AthleteDto ExistingAthlete(int Bib);
 
         [OperationContract]
         AthleteDto GetNewAthlete();

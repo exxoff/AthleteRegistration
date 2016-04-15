@@ -8,22 +8,22 @@ using System.Windows.Data;
 
 namespace AthleteRegistration.Converters
 {
-    public class ZeroToNullConverter : IValueConverter
+    public class BibEnabledConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
-            
-            if(value.ToString() == "0")
+            if(value == null || (bool)value == false)
             {
-                return "";
+                return true;
             }
-            return value;
+
+            return false;
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            throw new NotImplementedException();
         }
     }
 }
