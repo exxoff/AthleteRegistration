@@ -11,6 +11,11 @@ namespace AthleteRegistrationService
     [ServiceContract]
     public interface IAthleteService
     {
+        [OperationContract]
+        void SetDatabaseType(string Type);
+
+        [OperationContract]
+        void SetDatabaseFile(string File);
 
         [OperationContract]
         void StartQueueTimer();

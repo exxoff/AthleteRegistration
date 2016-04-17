@@ -10,6 +10,8 @@ namespace AthleteRegistrationService
 {
     public class LiteDBClient : IDbClient
     {
+        public string DbFilename { get; set; }
+
         public List<AthleteDto> GetAllAthletes()
         {
             throw new NotImplementedException();
@@ -17,7 +19,7 @@ namespace AthleteRegistrationService
 
         public AthleteDto GetAthlete(int Bib)
         {
-            using (var db = new LiteDatabase("C:\\Temp\\_athletes.LiteDB"))
+            using (var db = new LiteDatabase(DbFilename))
             {
                 var col = db.GetCollection<AthleteDto>("Athletes");
                 if (col.Count(x => x.Bib.Equals(Bib)) > 0)
@@ -31,7 +33,7 @@ namespace AthleteRegistrationService
 
         public void Save(AthleteDto Athlete)
         {
-            using (var db = new LiteDatabase("C:\\Temp\\_athletes.LiteDB"))
+            using (var db = new LiteDatabase(DbFilename))
             {
                 var col = db.GetCollection<AthleteDto>("Athletes");
 

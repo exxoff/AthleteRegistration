@@ -30,11 +30,16 @@
 
             </DoubleAnimation>
         </Storyboard>
+
+        <RoutedCommand x:Key="OpenStartHostWindow" />
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource OpenStartHostWindow}" CanExecute="MenuOpenStartHostWindow_CanExecute" Executed="MenuOpenStartHostWindow_Executed"/>
+    </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Arkiv">
-                <MenuItem Header="_Starta Server"/>
+                <MenuItem Header="_Starta Server" Command="{StaticResource OpenStartHostWindow}"/>
             </MenuItem>
         </Menu>
         <Grid>

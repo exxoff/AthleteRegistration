@@ -12,11 +12,13 @@ namespace AthleteRegistrationHost
     {
         static void Main(string[] args)
         {
-            Uri baseUri = new Uri("http://localhost:9090/AthleteRegistration");
 
+            Uri baseUri = new Uri(args[0]);
 
             try
             {
+                
+
                 using (ServiceHost host = new ServiceHost(typeof(AthleteRegistrationService.AthleteService), baseUri))
                 {
                     ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
@@ -26,7 +28,8 @@ namespace AthleteRegistrationHost
                     host.Open();
 
                     var hostProxy = new AthleteRegistrationService.AthleteService();
-
+                    hostProxy.SetDatabaseType(args[1]);
+                    hostProxy.SetDatabaseFile(args[2]);
                     hostProxy.StartQueueTimer();
                     Console.WriteLine("Värden lyssnar på adress {0}",baseUri.ToString());
                     Console.WriteLine("Tryck <Enter> för att stoppa servicen.");

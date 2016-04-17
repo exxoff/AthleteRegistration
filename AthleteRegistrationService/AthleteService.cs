@@ -10,22 +10,21 @@ using System.Threading;
 
 namespace AthleteRegistrationService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
+    
     public class AthleteService : IAthleteService
     {
 
-        public static Queue<AthleteDto> AthleteQueue;
-        public static IDbClient client;
+        private static Queue<AthleteDto> AthleteQueue;
+        private static IDbClient client;
+        private static string DatabaseType;
+        private static string DbFilename;
 
         public AthleteDto GetNewAthlete()
         {
             return new AthleteDto();
         }
 
-        //public void Save(AthleteDto athlete)
-        //{
-        //    DataHelper.SaveAthlete(athlete);
-        //}
+
 
         public void StartQueueTimer()
         {
@@ -48,14 +47,14 @@ namespace AthleteRegistrationService
             {
                 GetDbClient();
                 
-                //Console.WriteLine("Checking queue...");
+                
                 if (wasMutexCreatedNew)
                 {
                     try
                     {
                         while (AthleteQueue.Count > 0)
                         {
-                            //DataHelper.SaveAthlete(AthleteQueue.Dequeue());
+                            
                             client.Save(AthleteQueue.Dequeue());
                             
                             
@@ -114,9 +113,20 @@ namespace AthleteRegistrationService
         {
            if(client == null)
             {
-                client = DbFactory.GetDbClient("LiteDB");
+                client = DbFactory.GetDbClient(DatabaseType);
+                client.DbFilename =DbFilename;
             }
                       
+        }
+
+        public void SetDatabaseType(string Type)
+        {
+            DatabaseType = Type;
+        }
+
+        public void SetDatabaseFile(string File)
+        {
+            DbFilename = File;
         }
     }
 }

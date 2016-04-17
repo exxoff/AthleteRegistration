@@ -8,6 +8,8 @@ namespace AthleteRegistrationService.Interfaces
 {
     public interface IDbClient
     {
+        string DbFilename { get; set; }
+
         void Save(AthleteDto Athlete);
 
         AthleteDto GetAthlete(int Bib);
