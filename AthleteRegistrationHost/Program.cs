@@ -24,6 +24,7 @@ namespace AthleteRegistrationHost
                     ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
                     smb.HttpGetEnabled = true;
                     smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+                    
                     host.Description.Behaviors.Add(smb);
                     host.Open();
 

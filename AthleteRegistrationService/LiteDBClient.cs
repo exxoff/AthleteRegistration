@@ -14,7 +14,13 @@ namespace AthleteRegistrationService
 
         public List<AthleteDto> GetAllAthletes()
         {
-            throw new NotImplementedException();
+            using (var db = new LiteDatabase(DbFilename))
+            {
+                var col = db.GetCollection<AthleteDto>("Athletes");
+                var results = col.Find(Query.GTE("Bib", 1)).ToList();
+
+                return results;
+            }
         }
 
         public AthleteDto GetAthlete(int Bib)

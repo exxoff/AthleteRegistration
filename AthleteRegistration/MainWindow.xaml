@@ -32,14 +32,17 @@
         </Storyboard>
 
         <RoutedCommand x:Key="OpenStartHostWindow" />
+        <RoutedUICommand x:Key="OpenCsvExportWindow" />
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource OpenStartHostWindow}" CanExecute="MenuOpenStartHostWindow_CanExecute" Executed="MenuOpenStartHostWindow_Executed"/>
+        <CommandBinding Command="{StaticResource OpenCsvExportWindow}" Executed="MenuOpenCsvExportWindow_Executed" />
     </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Arkiv">
-                <MenuItem Header="_Starta Server" Command="{StaticResource OpenStartHostWindow}"/>
+                <MenuItem Header="_Starta Server..." Command="{StaticResource OpenStartHostWindow}"/>
+                <MenuItem Header="_Exportera CSV-fil..." Command="{StaticResource OpenCsvExportWindow}" />
             </MenuItem>
         </Menu>
         <Grid>
@@ -68,7 +71,7 @@
                 <StackPanel>
                     <!--<RadioButton GroupName="Course" Content="Lång" IsChecked="{Binding CurrentCourse.Wave}" Tag="1,Lång,Long" Margin="5" Checked="Course_Checked" FontSize="14" FontWeight="Bold"/>
                     <RadioButton GroupName="Course" Content="Kort" Tag="2,Kort,Short" Margin="5" Checked="Course_Checked" FontSize="14" FontWeight="Bold"/>-->
-                    <ComboBox x:Name="cboCourses" VerticalAlignment="Center" Margin="5" Loaded="Courses_Loaded" SelectedItem="{Binding CurrentCourse}" SelectedIndex="0" IsSynchronizedWithCurrentItem="True">
+                    <ComboBox x:Name="cboCourses" VerticalAlignment="Center" Margin="5" Loaded="Courses_Loaded" SelectedItem="{Binding CurrentCourse}" SelectedIndex="0" IsSynchronizedWithCurrentItem="True" HorizontalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Caption}" FontSize="20"/>
@@ -92,7 +95,7 @@
             </TextBlock>
             <DockPanel Grid.Column="2" Grid.Row="2">
                 
-                <Button Content="Spara" Click="Button_Click" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" FontSize="30" DockPanel.Dock="Right"/>
+                <Button Content="Spara" Click="Button_Click" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" FontSize="30" DockPanel.Dock="Right" IsDefault="True"/>
                 <!--<CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Checked="Crew_Checked" Unchecked="Crew_Checked" IsChecked="{Binding IsCrew}"/>-->
                 <CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" IsChecked="{Binding IsCrew,TargetNullValue=false}"/>
             </DockPanel>

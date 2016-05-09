@@ -1,9 +1,11 @@
 ﻿using AthleteRegistration.UserTypes;
+using AthleteRegistration.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,12 +30,13 @@ namespace AthleteRegistration.Windows
         private ObservableCollection<string> dbTypes;
         public StartServiceWindow()
         {
-            dbTypes = new ObservableCollection<string>() { "LiteDB", "SQLite" };
+            dbTypes = new ObservableCollection<string>() { "LiteDB" };
             
             hostInfo = new HostInformation();
             hostInfo.Address = ConfigurationManager.AppSettings["DefaultAddress"];
             hostInfo.DatabaseType = ConfigurationManager.AppSettings["DefaultDatabaseType"];
             hostInfo.DatabaseFile = GetDatabaseFile(hostInfo.DatabaseType);
+            hostInfo.ShieldIcon = IconResource.GetShieldIcon();
             InitializeComponent();
             cboDbType.ItemsSource = dbTypes;
             this.DataContext = hostInfo;
@@ -75,7 +78,8 @@ namespace AthleteRegistration.Windows
                 pInfo.WorkingDirectory = ConfigurationManager.AppSettings["ServerDirectory"];
                 pInfo.FileName = string.Format("{0}\\{1}",pInfo.WorkingDirectory,"AthleteRegistrationHost.exe");
                 pInfo.Arguments = string.Format("{0} {1} {2}", hostInfo.Address, hostInfo.DatabaseType, hostInfo.DatabaseFile);
-                pInfo.UseShellExecute = false;
+                pInfo.UseShellExecute = true;
+                pInfo.Verb = "runas";
                 Process p = new Process();
                 p.StartInfo = pInfo;
                 p.Start();

@@ -7,6 +7,18 @@
       <xsd:import schemaLocation="http://localhost:9090/AthleteRegistration?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AthleteRegistrationService" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IAthleteService_SetDatabaseType_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetDatabaseType" />
+  </wsdl:message>
+  <wsdl:message name="IAthleteService_SetDatabaseType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetDatabaseTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAthleteService_SetDatabaseFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetDatabaseFile" />
+  </wsdl:message>
+  <wsdl:message name="IAthleteService_SetDatabaseFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetDatabaseFileResponse" />
+  </wsdl:message>
   <wsdl:message name="IAthleteService_StartQueueTimer_InputMessage">
     <wsdl:part name="parameters" element="tns:StartQueueTimer" />
   </wsdl:message>
@@ -38,6 +50,14 @@
     <wsdl:part name="parameters" element="tns:GetNewAthleteResponse" />
   </wsdl:message>
   <wsdl:portType name="IAthleteService">
+    <wsdl:operation name="SetDatabaseType">
+      <wsdl:input wsam:Action="http://tempuri.org/IAthleteService/SetDatabaseType" message="tns:IAthleteService_SetDatabaseType_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IAthleteService/SetDatabaseTypeResponse" message="tns:IAthleteService_SetDatabaseType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetDatabaseFile">
+      <wsdl:input wsam:Action="http://tempuri.org/IAthleteService/SetDatabaseFile" message="tns:IAthleteService_SetDatabaseFile_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IAthleteService/SetDatabaseFileResponse" message="tns:IAthleteService_SetDatabaseFile_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="StartQueueTimer">
       <wsdl:input wsam:Action="http://tempuri.org/IAthleteService/StartQueueTimer" message="tns:IAthleteService_StartQueueTimer_InputMessage" />
       <wsdl:output wsam:Action="http://tempuri.org/IAthleteService/StartQueueTimerResponse" message="tns:IAthleteService_StartQueueTimer_OutputMessage" />
@@ -61,6 +81,24 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAthleteService" type="tns:IAthleteService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetDatabaseType">
+      <soap:operation soapAction="http://tempuri.org/IAthleteService/SetDatabaseType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDatabaseFile">
+      <soap:operation soapAction="http://tempuri.org/IAthleteService/SetDatabaseFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="StartQueueTimer">
       <soap:operation soapAction="http://tempuri.org/IAthleteService/StartQueueTimer" style="document" />
       <wsdl:input>

@@ -1,0 +1,31 @@
+﻿<metro:MetroWindow x:Class="AthleteRegistration.Windows.ExportCsvWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AthleteRegistration.Windows"
+        mc:Ignorable="d"
+        Title="ExportCsvWindow" Height="120" Width="300">
+    <Window.Resources>
+        <RoutedCommand x:Key="OpenSaveDialog"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource OpenSaveDialog}" Executed="OpenSaveDiaolog_Executed"/>
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel  LastChildFill="True">
+            <Button DockPanel.Dock="Right" Margin="0,10,5,10" Content="..." Height="25" Width="25" Command="{StaticResource OpenSaveDialog}"/>
+            <TextBox Text="{Binding FileName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10" Height="25"/>
+            
+        </DockPanel>
+        <DockPanel LastChildFill="True" Grid.Row="1">
+            <Button DockPanel.Dock="Right" Margin="5" Content="Spara" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Path=NumberOfAthletes, StringFormat='{}{0} anmälda atleter'}" Margin="10" FontSize="15" />
+        </DockPanel>
+    </Grid>
+</metro:MetroWindow>

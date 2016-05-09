@@ -167,5 +167,11 @@ namespace AthleteRegistration
         {
             e.CanExecute = true;
         }
+
+        private void MenuOpenCsvExportWindow_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            ExportCsvWindow win = new ExportCsvWindow();
+            win.ShowDialog();
+        }
     }
 }

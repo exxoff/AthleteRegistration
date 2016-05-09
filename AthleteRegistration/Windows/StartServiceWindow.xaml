@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:AthleteRegistration.Windows"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Starta värd" Height="250" Width="500" ResizeMode="NoResize">
+        Title="Starta värd" Height="250" Width="500"  BorderThickness="0" 
+                      GlowBrush="Black"
+                      ResizeMode="NoResize"
+
+                      WindowTransitionsEnabled="False"
+                      WindowStartupLocation="CenterScreen"
+                   Icon="../Images/moif.ico">
     <Window.Resources>
         <RoutedUICommand x:Key="StartHost"/>
     </Window.Resources>
@@ -31,6 +37,11 @@
         <TextBox Margin="5" Text="{Binding Address}" Grid.Column="1" VerticalContentAlignment="Center"/>
         <ComboBox x:Name="cboDbType" Margin="5" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding DatabaseType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  IsSynchronizedWithCurrentItem="True" SelectionChanged="cboDbType_SelectionChanged"/>
         <TextBox Margin="5" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Text="{Binding DatabaseFile,UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Content="Starta värd" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="1" Margin="10" Command="{StaticResource StartHost}" IsDefault="True"/>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="1" Margin="10" Command="{StaticResource StartHost}" IsDefault="True">
+            <DockPanel LastChildFill="True">
+                <Image Source="{Binding ShieldIcon}" Width="15" Height="15"/>
+                <Label Content="STARTA SERVER"/>
+            </DockPanel>
+        </Button>
     </Grid>
 </metro:MetroWindow>

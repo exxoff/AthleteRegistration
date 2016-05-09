@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace AthleteRegistration.UserTypes
 {
@@ -30,6 +32,12 @@ namespace AthleteRegistration.UserTypes
         {
             get { return databaseFile; }
             set { databaseFile = value; OnPropertyChanged(); }
+        }
+        private BitmapSource shieldIcon;
+        public BitmapSource ShieldIcon
+        {
+            get { return shieldIcon; }
+            set { shieldIcon = value; OnPropertyChanged(); }
         }
 
 

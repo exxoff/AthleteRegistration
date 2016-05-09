@@ -91,7 +91,8 @@ namespace AthleteRegistrationService
 
         public List<AthleteDto> GetAllAthletes()
         {
-            throw new NotImplementedException();
+            client = GetDbClient();
+            return client.GetAllAthletes();
         }
 
         public AthleteDto ExistingAthlete(int Bib)
@@ -102,21 +103,23 @@ namespace AthleteRegistrationService
                 return null;
             }
 
-            GetDbClient();
+           client =GetDbClient();
             
             return client.GetAthlete(Bib);
 
             
         }
 
-        private void GetDbClient()
+        private IDbClient GetDbClient()
         {
-           if(client == null)
+            if (client == null)
             {
                 client = DbFactory.GetDbClient(DatabaseType);
-                client.DbFilename =DbFilename;
+                client.DbFilename = DbFilename;
             }
-                      
+
+            return client;
+
         }
 
         public void SetDatabaseType(string Type)
