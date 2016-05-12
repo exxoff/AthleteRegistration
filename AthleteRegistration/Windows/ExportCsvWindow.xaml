@@ -5,13 +5,18 @@
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AthleteRegistration.Windows"
+        xmlns:converters="clr-namespace:AthleteRegistration.Converters"
         mc:Ignorable="d"
-        Title="ExportCsvWindow" Height="120" Width="300">
+        Title="Exportera" Height="120" Width="300"
+                   Icon="../Images/moif.ico">
     <Window.Resources>
         <RoutedCommand x:Key="OpenSaveDialog"/>
+        <RoutedCommand x:Key="SaveCsv"/>
+        <converters:FileInfoConverter x:Key="FileInfoConverter"/>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource OpenSaveDialog}" Executed="OpenSaveDiaolog_Executed"/>
+        <CommandBinding Command="{StaticResource SaveCsv}" Executed="SaveCsv_Executed"/>
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -20,11 +25,11 @@
         </Grid.RowDefinitions>
         <DockPanel  LastChildFill="True">
             <Button DockPanel.Dock="Right" Margin="0,10,5,10" Content="..." Height="25" Width="25" Command="{StaticResource OpenSaveDialog}"/>
-            <TextBox Text="{Binding FileName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10" Height="25"/>
+            <TextBox Text="{Binding ExportFile,Mode=TwoWay,Converter={StaticResource FileInfoConverter}}" Margin="10" Height="25"/>
             
         </DockPanel>
         <DockPanel LastChildFill="True" Grid.Row="1">
-            <Button DockPanel.Dock="Right" Margin="5" Content="Spara" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button DockPanel.Dock="Right" Margin="5" Content="Spara" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{StaticResource SaveCsv}"/>
             <TextBlock Text="{Binding Path=NumberOfAthletes, StringFormat='{}{0} anmälda atleter'}" Margin="10" FontSize="15" />
         </DockPanel>
     </Grid>

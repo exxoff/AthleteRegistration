@@ -1,4 +1,5 @@
 ﻿using AthleteRegistration.UserTypes;
+using AthleteRegistration.ViewModels;
 using AthleteRegistration.Windows;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace AthleteRegistration
     {
 
         
-        private Athlete currentAthlete;
+        private MainViewModel viewModel;
         public AthleteService.AthleteServiceClient client = new AthleteService.AthleteServiceClient();
         private SaveMessage msg;
         private List<Course> listOfCourses;
@@ -23,7 +24,7 @@ namespace AthleteRegistration
         {
 
 
-            currentAthlete = new Athlete()
+            viewModel = new MainViewModel()
             {
                 CurrentCourse = new Course()
                 {
@@ -38,31 +39,31 @@ namespace AthleteRegistration
 
            InitializeComponent();
 
-            this.DataContext = currentAthlete;
+            this.DataContext = viewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
          
-            if (currentAthlete.IsCrew == true)
+            if (viewModel.IsCrew == true)
             {
-                currentAthlete.BIB = -1;
+                viewModel.BIB = -1;
             }
 
             AthleteService.AthleteDto remoteAthlete  =new AthleteService.AthleteDto()
             {
-                Bib = currentAthlete.BIB,
-                FirstName = currentAthlete.FirstName,
-                LastName = currentAthlete.LastName,
-                Course = currentAthlete.CurrentCourse.Group,
-                Wave=currentAthlete.CurrentCourse.Wave,
-                EMailAddress = currentAthlete.EMailAddress
+                Bib = viewModel.BIB,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName,
+                Group = viewModel.CurrentCourse.Group,
+                WaveNumber=viewModel.CurrentCourse.Wave,
+                EMailAddress = viewModel.EMailAddress
 
             };
             try
             {
 
-                AthleteService.AthleteDto _existingAthlete = client.ExistingAthlete(currentAthlete.BIB);
+                AthleteService.AthleteDto _existingAthlete = client.ExistingAthlete(viewModel.BIB);
                 if(_existingAthlete != null)
                 {
                     if(MessageBox.Show(string.Format("Nummer {0} har redan registrerats av {1} {2}. Vill du uppdatera?",_existingAthlete.Bib, _existingAthlete.FirstName, _existingAthlete.LastName),
@@ -74,14 +75,14 @@ namespace AthleteRegistration
 
                 if (client.StoreAthlete(remoteAthlete))
                 {
-                    currentAthlete.IsSaved = true;
-                    if(currentAthlete.IsCrew == true)
+                    viewModel.IsSaved = true;
+                    if(viewModel.IsCrew == true)
                     {
-                        currentAthlete.SaveMessage = string.Format("Funktionär {0} {1} registrerad. Tack för din hjälp.", currentAthlete.FirstName, currentAthlete.LastName);
+                        viewModel.SaveMessage = string.Format("Funktionär {0} {1} registrerad. Tack för din hjälp.", viewModel.FirstName, viewModel.LastName);
                     }
                     else
                     {
-                        currentAthlete.SaveMessage = string.Format("#{0}, {1} {2}, registrerad för klass {3}.", currentAthlete.BIB, currentAthlete.FirstName, currentAthlete.LastName, currentAthlete.CurrentCourse.Caption);
+                        viewModel.SaveMessage = string.Format("#{0}, {1} {2}, registrerad för klass {3}.", viewModel.BIB, viewModel.FirstName, viewModel.LastName, viewModel.CurrentCourse.Caption);
                     }
                     
  
@@ -89,8 +90,8 @@ namespace AthleteRegistration
                 }
                 else
                 {
-                    currentAthlete.IsSaved = false;
-                    currentAthlete.SaveMessage = string.Format("Kunde inte registrera deltagare. Kontrollera med en funktionär.");
+                    viewModel.IsSaved = false;
+                    viewModel.SaveMessage = string.Format("Kunde inte registrera deltagare. Kontrollera med en funktionär.");
                 }
             }
             catch (Exception ex)
@@ -104,10 +105,10 @@ namespace AthleteRegistration
        
         private void AnimationCompleted(object sender, EventArgs e)
         {
-            if (currentAthlete.IsSaved != null)
+            if (viewModel.IsSaved != null)
             {
-                currentAthlete = new Athlete();
-                DataContext = currentAthlete;
+                viewModel = new MainViewModel();
+                DataContext = viewModel;
                 cboCourses.SelectedIndex = 0;
             }
 
@@ -118,7 +119,7 @@ namespace AthleteRegistration
         private void Crew_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox _box = sender as CheckBox;
-            currentAthlete.IsCrew = (bool)_box.IsChecked ? true : false;
+            viewModel.IsCrew = (bool)_box.IsChecked ? true : false;
 
         }
 
@@ -130,7 +131,7 @@ namespace AthleteRegistration
             {
                 string[] _courseInfo = _radio.Tag.ToString().Split(',');
 
-                currentAthlete.CurrentCourse = new Course()
+                viewModel.CurrentCourse = new Course()
                 {
                     Wave = _courseInfo[0],
                     Caption = _courseInfo[1],

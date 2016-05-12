@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BibEnabledConverter.cs" />
+    <Compile Include="Converters\FileInfoConverter.cs" />
     <Compile Include="Converters\IsSavedConverter.cs" />
     <Compile Include="Converters\ZeroToNullConverter.cs" />
     <Compile Include="Service References\AthleteService\Reference.cs">
@@ -87,10 +88,16 @@
     <Compile Include="UserTypes\Course.cs" />
     <Compile Include="UserTypes\HostInformation.cs" />
     <Compile Include="UserTypes\SaveMessage.cs" />
+    <Compile Include="Utils\CsvHelper.cs" />
     <Compile Include="Utils\IconResource.cs" />
+    <Compile Include="Utils\ServiceHelper.cs" />
     <Compile Include="ViewModels\ExportCsvViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Windows\ExportCsvWindow.xaml.cs">
       <DependentUpon>ExportCsvWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LotteryWindow.xaml.cs">
+      <DependentUpon>LotteryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\StartServiceWindow.xaml.cs">
       <DependentUpon>StartServiceWindow.xaml</DependentUpon>
@@ -108,6 +115,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\ExportCsvWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LotteryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

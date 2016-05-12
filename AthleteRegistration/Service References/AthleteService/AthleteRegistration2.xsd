@@ -4,11 +4,11 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AthleteId" type="xs:int" />
       <xs:element minOccurs="0" name="Bib" type="xs:int" />
-      <xs:element minOccurs="0" name="Course" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMailAddress" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Group" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Wave" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WaveNumber" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AthleteDto" nillable="true" type="tns:AthleteDto" />

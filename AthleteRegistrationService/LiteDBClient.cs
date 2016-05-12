@@ -52,7 +52,7 @@ namespace AthleteRegistrationService
                 if (col.Count(x => x.Bib.Equals(Athlete.Bib)) > 0)
                 {
                     col.Update(Athlete);
-                    Console.WriteLine("{0} uppdaterades. ({1} {2}, {3} bana.)", Athlete.Bib,Athlete.FirstName,Athlete.LastName,Athlete.Course);
+                    Console.WriteLine("{0} uppdaterades. ({1} {2}, {3} bana.)", Athlete.Bib,Athlete.FirstName,Athlete.LastName,Athlete.Group);
 
 
                 }

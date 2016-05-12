@@ -8,14 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using AthleteRegistration.AthleteService;
 using System.IO;
+using AthleteRegistration.Utils;
+using AthleteRegistration.UserTypes;
 
 namespace AthleteRegistration.ViewModels
 {
     public class ExportCsvViewModel : INotifyPropertyChanged
     {
 
-        private List<AthleteDto> athletes;
-        public List<AthleteDto> Athletes
+        private List<Athlete> athletes;
+        public List<Athlete> Athletes
         {
             get { return athletes; }
             set { athletes = value; OnPropertyChanged(); }
@@ -38,11 +40,11 @@ namespace AthleteRegistration.ViewModels
 
         public ExportCsvViewModel()
         {
-            //Athletes = new List<AthleteDto>();
+            
 
             try
             {
-                Athletes = new AthleteServiceClient().GetAllAthletes();
+                Athletes = new AthleteServiceClient().GetAllAthletes().ToAthleteCollection();
                 NumberOfAthletes = Athletes.Count();
             }
             catch (Exception)

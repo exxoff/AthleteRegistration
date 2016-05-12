@@ -20,10 +20,11 @@
         <converters:IsSavedConverter x:Key="IsSavedConverter"/>
         <converters:ZeroToNullConverter x:Key="ZeroToNullConverter"/>
         <converters:BibEnabledConverter x:Key="BibEnabled"/>
+        
         <Storyboard x:Key="ErrorAnimation">
             <DoubleAnimation Storyboard.TargetProperty="(TextBlock.Opacity)"
                              From="1" To="0" AutoReverse="false"
-                             Duration="0:0:5"
+                             Duration="0:0:2"
                              Completed="AnimationCompleted"
                              FillBehavior="Stop"
                              >

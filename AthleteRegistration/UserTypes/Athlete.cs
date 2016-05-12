@@ -8,97 +8,17 @@ using System.Threading.Tasks;
 
 namespace AthleteRegistration.UserTypes
 {
-    public class Athlete : INotifyPropertyChanged
+    public class Athlete 
     {
-
-        private int bib;
-        private string firstName;
-        private string lastName;
-        
-        private string eMailAddress;
-        private bool? isSaved;
-        private int athleteId;
-        private string saveMessage;
-
-        private Course currentCourse;
-        public Course CurrentCourse
-        {
-            get { return currentCourse; }
-            set { currentCourse = value; OnPropertyChanged(); }
-        }
+        public int Bib { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string WaveNumber { get; set; }
+        public string Group { get; set; }
+        public string EMail { get; set; }
 
 
-        private bool? isCrew;
-        public bool? IsCrew
-        {
-            get { return isCrew; }
-            set { isCrew = value; OnPropertyChanged(); }
-        }
-
-
-        public string SaveMessage
-        {
-            get { return saveMessage; }
-            set { saveMessage = value; OnPropertyChanged(); }
-        }
-
-
-
-        public int BIB
-        {
-            get { return bib; }
-            set { bib = value; OnPropertyChanged(); }
-        }
-
-
-        public int AthleteId
-        {
-            get { return athleteId; }
-            set { athleteId = value; OnPropertyChanged(); }
-        }
-
-
-        public bool? IsSaved
-        {
-            get { return isSaved; }
-            set { isSaved = value; OnPropertyChanged(); }
-        }
-
-
-
-        public string FirstName
-        {
-            get { return firstName; }
-            set { firstName = value; OnPropertyChanged(); }
-        }
-
-
-
-        public string LastName
-        {
-            get { return lastName; }
-            set { lastName = value; OnPropertyChanged(); }
-        }
-
-
-        public string EMailAddress
-        {
-            get { return eMailAddress; }
-            set { eMailAddress = value; OnPropertyChanged(); }
-        }
-
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-        void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+  
 
 
     }

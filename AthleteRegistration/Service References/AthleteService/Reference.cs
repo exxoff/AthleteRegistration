@@ -29,19 +29,19 @@ namespace AthleteRegistration.AthleteService {
         private int BibField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CourseField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EMailAddressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FirstNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GroupField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LastNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string WaveField;
+        private string WaveNumberField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -80,19 +80,6 @@ namespace AthleteRegistration.AthleteService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Course {
-            get {
-                return this.CourseField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CourseField, value) != true)) {
-                    this.CourseField = value;
-                    this.RaisePropertyChanged("Course");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string EMailAddress {
             get {
                 return this.EMailAddressField;
@@ -119,6 +106,19 @@ namespace AthleteRegistration.AthleteService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Group {
+            get {
+                return this.GroupField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GroupField, value) != true)) {
+                    this.GroupField = value;
+                    this.RaisePropertyChanged("Group");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string LastName {
             get {
                 return this.LastNameField;
@@ -132,14 +132,14 @@ namespace AthleteRegistration.AthleteService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Wave {
+        public string WaveNumber {
             get {
-                return this.WaveField;
+                return this.WaveNumberField;
             }
             set {
-                if ((object.ReferenceEquals(this.WaveField, value) != true)) {
-                    this.WaveField = value;
-                    this.RaisePropertyChanged("Wave");
+                if ((object.ReferenceEquals(this.WaveNumberField, value) != true)) {
+                    this.WaveNumberField = value;
+                    this.RaisePropertyChanged("WaveNumber");
                 }
             }
         }

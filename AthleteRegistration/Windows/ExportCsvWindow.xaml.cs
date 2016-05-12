@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using AthleteRegistration.Utils;
 
 namespace AthleteRegistration.Windows
 {
@@ -21,27 +22,43 @@ namespace AthleteRegistration.Windows
     /// </summary>
     public partial class ExportCsvWindow
     {
+        ExportCsvViewModel viewModel;
         public ExportCsvWindow()
         {
-            ExportCsvViewModel viewModel = new ExportCsvViewModel();
+            viewModel = new ExportCsvViewModel();
             InitializeComponent();
             DataContext = viewModel;
         }
 
         private void OpenSaveDiaolog_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            //var d = new CommonSaveFileDialog();
-            //d.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //d.EnsurePathExists = true;
-            //d.Filters = "*.csv";
-            //d.DefaultExtension= ".csv";
-            //d.ShowDialog();
+
 
             var f = new Microsoft.Win32.SaveFileDialog();
             f.Filter = "*.csv|*.csv";
             f.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            f.ShowDialog();
+            if((bool)f.ShowDialog())
+            {
+                viewModel.ExportFile = new System.IO.FileInfo(f.FileName);
+            }
 
+            
+
+        }
+
+        private void SaveCsv_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                CsvHelper.GenerateCsv(viewModel.ExportFile, viewModel.Athletes);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Fel!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            this.Close();
         }
     }
 }

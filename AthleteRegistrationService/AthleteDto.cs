@@ -22,11 +22,12 @@ namespace AthleteRegistrationService
         [DataMember]
         public string LastName { get; set; }
         [DataMember]
-        public string Course { get; set; }
+        public string Group { get; set; }
+        [DataMember]
+        public string WaveNumber { get; set; }
         [DataMember]
         public string EMailAddress { get; set; }
-        [DataMember]
-        public string Wave { get; set; }
+      
 
 
         public DateTime Updated { get; set; }
