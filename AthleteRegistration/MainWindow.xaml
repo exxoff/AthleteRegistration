@@ -34,16 +34,21 @@
 
         <RoutedCommand x:Key="OpenStartHostWindow" />
         <RoutedUICommand x:Key="OpenCsvExportWindow" />
+        <RoutedCommand x:Key="OpenLotteryWindow"/>
+        <RoutedCommand x:Key="SubmitAthlete" />
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource OpenStartHostWindow}" CanExecute="MenuOpenStartHostWindow_CanExecute" Executed="MenuOpenStartHostWindow_Executed"/>
         <CommandBinding Command="{StaticResource OpenCsvExportWindow}" Executed="MenuOpenCsvExportWindow_Executed" />
+        <CommandBinding Command="{StaticResource OpenLotteryWindow}" Executed="MenuOpenLotteryWindow_Executed"/>
+        <CommandBinding Command="{StaticResource SubmitAthlete}" CanExecute="SubmitAthlete_CanExecute" Executed="SubmitAthlete_Executed" />
     </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Arkiv">
                 <MenuItem Header="_Starta Server..." Command="{StaticResource OpenStartHostWindow}"/>
                 <MenuItem Header="_Exportera CSV-fil..." Command="{StaticResource OpenCsvExportWindow}" />
+                <MenuItem Header="Ö_ppna lotterifönster..." Command="{StaticResource OpenLotteryWindow}" />
             </MenuItem>
         </Menu>
         <Grid>
@@ -58,24 +63,23 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Header="Startnummer" FontSize="22" Margin="5">
-                <TextBox Text="{Binding BIB,Converter={StaticResource ZeroToNullConverter}}" Margin="5" FontSize="20" IsEnabled="{Binding IsCrew,Converter={StaticResource BibEnabled}}"/>
+                <TextBox x:Name="txtBib" Text="{Binding Bib,Converter={StaticResource ZeroToNullConverter},ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Margin="5" FontSize="20" IsEnabled="{Binding IsCrew,Converter={StaticResource BibEnabled}}"/>
             </GroupBox>
             <GroupBox Header="Förnamn" FontSize="22" Margin="5" Grid.Column="1">
-                <TextBox Text="{Binding FirstName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20" LostFocus="TextBox_LostFocus"/>
             </GroupBox>
 
             <GroupBox Header="Efternamn" FontSize="22" Margin="5" Grid.Column="2">
-                <TextBox Text="{Binding LastName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
+                <TextBox Text="{Binding LastName,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
             </GroupBox>
 
             <GroupBox Header="Klass" FontSize="22" Margin="5" Grid.Column="0" Grid.Row="1">
                 <StackPanel>
-                    <!--<RadioButton GroupName="Course" Content="Lång" IsChecked="{Binding CurrentCourse.Wave}" Tag="1,Lång,Long" Margin="5" Checked="Course_Checked" FontSize="14" FontWeight="Bold"/>
-                    <RadioButton GroupName="Course" Content="Kort" Tag="2,Kort,Short" Margin="5" Checked="Course_Checked" FontSize="14" FontWeight="Bold"/>-->
+
                     <ComboBox x:Name="cboCourses" VerticalAlignment="Center" Margin="5" Loaded="Courses_Loaded" SelectedItem="{Binding CurrentCourse}" SelectedIndex="0" IsSynchronizedWithCurrentItem="True" HorizontalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Caption}" FontSize="20"/>
+                                <TextBlock Text="{Binding Caption}" FontSize="14"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                         
@@ -96,9 +100,9 @@
             </TextBlock>
             <DockPanel Grid.Column="2" Grid.Row="2">
                 
-                <Button Content="Spara" Click="Button_Click" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" FontSize="30" DockPanel.Dock="Right" IsDefault="True"/>
+                <Button Content="Spara" Command="{StaticResource SubmitAthlete}" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" FontSize="30" DockPanel.Dock="Right" IsDefault="True"/>
                 <!--<CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Checked="Crew_Checked" Unchecked="Crew_Checked" IsChecked="{Binding IsCrew}"/>-->
-                <CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" IsChecked="{Binding IsCrew,TargetNullValue=false}"/>
+                <CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" IsChecked="{Binding IsCrew,TargetNullValue=false,ValidatesOnDataErrors=True}"/>
             </DockPanel>
             
 

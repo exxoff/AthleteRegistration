@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AthleteRegistration.AthleteService;
+using AthleteRegistration.UserTypes;
+using AthleteRegistration.Utils;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -6,15 +9,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using AthleteRegistration.AthleteService;
-using System.IO;
-using AthleteRegistration.Utils;
-using AthleteRegistration.UserTypes;
 
 namespace AthleteRegistration.ViewModels
 {
-    public class ExportCsvViewModel : INotifyPropertyChanged
+    class LotteryViewModel : INotifyPropertyChanged
     {
+
 
         private List<Athlete> athletes;
         public List<Athlete> Athletes
@@ -23,42 +23,43 @@ namespace AthleteRegistration.ViewModels
             set { athletes = value; OnPropertyChanged(); }
         }
 
-        private FileInfo exportFile;
-        public FileInfo ExportFile
+
+        private ObservableCollection<Athlete> winners;
+        public ObservableCollection<Athlete> Winners
         {
-            get { return exportFile; }
-            set { exportFile = value; OnPropertyChanged(); }
+            get { return winners; }
+            set { winners = value; OnPropertyChanged(); }
         }
 
-        private int numberOfAthletes;
-        public int NumberOfAthletes
+        private int numberOfWinners;
+        public int NumberOfWinners
         {
-            get { return numberOfAthletes; }
-            set { numberOfAthletes = value; OnPropertyChanged(); }
+            get { return numberOfWinners; }
+            set { numberOfWinners = value; OnPropertyChanged(); }
         }
 
 
-        public ExportCsvViewModel()
-        {
-            
 
+
+        public LotteryViewModel()
+        {
             try
             {
-                Athletes = new AthleteServiceClient().GetAllAthletes(false).ToAthleteCollection();
-                NumberOfAthletes = Athletes.Count();
+                Athletes = new AthleteServiceClient().GetAllAthletes(true).ToAthleteCollection();
+                
             }
             catch (Exception)
             {
 
                 throw;
             }
-            
-
-            }
 
 
+        }
+    
 
-        #region PropertyChangedMemebers
+
+        #region PropertyChanged Members
         void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             if (PropertyChanged != null)
@@ -67,7 +68,6 @@ namespace AthleteRegistration.ViewModels
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-
         #endregion
     }
 }

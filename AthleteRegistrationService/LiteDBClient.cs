@@ -12,12 +12,14 @@ namespace AthleteRegistrationService
     {
         public string DbFilename { get; set; }
 
-        public List<AthleteDto> GetAllAthletes()
+        public List<AthleteDto> GetAllAthletes(bool IncludeCrew=false)
         {
+            int selector = IncludeCrew ? -2 : 1;
+
             using (var db = new LiteDatabase(DbFilename))
             {
                 var col = db.GetCollection<AthleteDto>("Athletes");
-                var results = col.Find(Query.GTE("Bib", 1)).ToList();
+                var results = col.Find(Query.GTE("Bib", selector)).ToList();
 
                 return results;
             }

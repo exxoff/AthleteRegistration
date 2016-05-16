@@ -89,10 +89,10 @@ namespace AthleteRegistrationService
             
         }
 
-        public List<AthleteDto> GetAllAthletes()
+        public List<AthleteDto> GetAllAthletes(bool IncludeCrew = false)
         {
             client = GetDbClient();
-            return client.GetAllAthletes();
+            return client.GetAllAthletes(IncludeCrew);
         }
 
         public AthleteDto ExistingAthlete(int Bib)

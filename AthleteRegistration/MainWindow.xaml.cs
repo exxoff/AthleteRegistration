@@ -3,6 +3,7 @@ using AthleteRegistration.ViewModels;
 using AthleteRegistration.Windows;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -29,7 +30,7 @@ namespace AthleteRegistration
                 CurrentCourse = new Course()
                 {
                     Wave = "1",
-                    Caption = "Lång",
+                    Caption = "LÅNG",
                     Group = "Long"
                 },
                 IsCrew = false            
@@ -40,66 +41,7 @@ namespace AthleteRegistration
            InitializeComponent();
 
             this.DataContext = viewModel;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-         
-            if (viewModel.IsCrew == true)
-            {
-                viewModel.BIB = -1;
-            }
-
-            AthleteService.AthleteDto remoteAthlete  =new AthleteService.AthleteDto()
-            {
-                Bib = viewModel.BIB,
-                FirstName = viewModel.FirstName,
-                LastName = viewModel.LastName,
-                Group = viewModel.CurrentCourse.Group,
-                WaveNumber=viewModel.CurrentCourse.Wave,
-                EMailAddress = viewModel.EMailAddress
-
-            };
-            try
-            {
-
-                AthleteService.AthleteDto _existingAthlete = client.ExistingAthlete(viewModel.BIB);
-                if(_existingAthlete != null)
-                {
-                    if(MessageBox.Show(string.Format("Nummer {0} har redan registrerats av {1} {2}. Vill du uppdatera?",_existingAthlete.Bib, _existingAthlete.FirstName, _existingAthlete.LastName),
-                        "Dublett",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                if (client.StoreAthlete(remoteAthlete))
-                {
-                    viewModel.IsSaved = true;
-                    if(viewModel.IsCrew == true)
-                    {
-                        viewModel.SaveMessage = string.Format("Funktionär {0} {1} registrerad. Tack för din hjälp.", viewModel.FirstName, viewModel.LastName);
-                    }
-                    else
-                    {
-                        viewModel.SaveMessage = string.Format("#{0}, {1} {2}, registrerad för klass {3}.", viewModel.BIB, viewModel.FirstName, viewModel.LastName, viewModel.CurrentCourse.Caption);
-                    }
-                    
- 
-                    
-                }
-                else
-                {
-                    viewModel.IsSaved = false;
-                    viewModel.SaveMessage = string.Format("Kunde inte registrera deltagare. Kontrollera med en funktionär.");
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(string.Format("{0} \n\n {1}", ex.Message, ex.InnerException == null ? null : ex.InnerException.ToString()),"Fel!",MessageBoxButton.OK,MessageBoxImage.Error);
-            }
-           
+            txtBib.Focus();
         }
 
        
@@ -110,6 +52,7 @@ namespace AthleteRegistration
                 viewModel = new MainViewModel();
                 DataContext = viewModel;
                 cboCourses.SelectedIndex = 0;
+                txtBib.Focus();
             }
 
 
@@ -150,8 +93,8 @@ namespace AthleteRegistration
             if(listOfCourses == null)
             {
                 listOfCourses = new List<Course>();
-                listOfCourses.Add(new Course() { Caption = "Lång", Wave = "1", Group = "Long" });
-                listOfCourses.Add(new Course() { Caption = "Kort", Wave = "2", Group = "Short" });
+                listOfCourses.Add(new Course() { Caption = "LÅNG", Wave = "1", Group = "Long" });
+                listOfCourses.Add(new Course() { Caption = "KORT", Wave = "2", Group = "Short" });
 
 
             }
@@ -173,6 +116,100 @@ namespace AthleteRegistration
         {
             ExportCsvWindow win = new ExportCsvWindow();
             win.ShowDialog();
+        }
+
+        private void MenuOpenLotteryWindow_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            LotteryWindow win = new LotteryWindow();
+            win.ShowDialog();
+        }
+
+        private void SubmitAthlete_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+
+            if (viewModel.IsCrew == true)
+            {
+                viewModel.Bib = -1;
+            }
+
+            AthleteService.AthleteDto remoteAthlete = new AthleteService.AthleteDto()
+            {
+                Bib = viewModel.Bib,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName,
+                Group = viewModel.CurrentCourse.Group,
+                WaveNumber = viewModel.CurrentCourse.Wave,
+                EMailAddress = viewModel.EMailAddress
+
+            };
+            try
+            {
+
+                AthleteService.AthleteDto _existingAthlete = client.ExistingAthlete(viewModel.Bib);
+                if (_existingAthlete != null)
+                {
+                    if (MessageBox.Show(string.Format("Nummer {0} har redan registrerats av {1} {2}. Vill du uppdatera?", _existingAthlete.Bib, _existingAthlete.FirstName, _existingAthlete.LastName),
+                        "Dublett", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                if (client.StoreAthlete(remoteAthlete))
+                {
+                    viewModel.IsSaved = true;
+                    if (viewModel.IsCrew == true)
+                    {
+                        viewModel.SaveMessage = string.Format("Funktionär {0} {1} registrerad. Tack för din hjälp.", viewModel.FirstName, viewModel.LastName);
+                    }
+                    else
+                    {
+                        viewModel.SaveMessage = string.Format("#{0}, {1} {2}, registrerad för klass {3}.", viewModel.Bib, viewModel.FirstName, viewModel.LastName, viewModel.CurrentCourse.Caption);
+                    }
+
+
+
+                }
+                else
+                {
+                    viewModel.IsSaved = false;
+                    viewModel.SaveMessage = string.Format("Kunde inte registrera deltagare. Kontrollera med en funktionär.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(string.Format("{0} \n\n {1}", ex.Message, ex.InnerException == null ? null : ex.InnerException.ToString()), "Fel!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void SubmitAthlete_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            if (viewModel.IsNew)
+            {
+                e.CanExecute = false;
+                return;
+            }
+
+                e.CanExecute = IsValid(sender as DependencyObject);
+
+            
+        }
+
+        private bool IsValid(DependencyObject obj)
+        {
+            // The dependency object is valid if it has no errors and all
+            // of its children (that are dependency objects) are error-free.
+            return !Validation.GetHasError(obj) &&
+            LogicalTreeHelper.GetChildren(obj)
+            .OfType<DependencyObject>()
+            .All(IsValid);
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ((Control)sender).GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
     }
 }

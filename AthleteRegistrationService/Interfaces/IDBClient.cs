@@ -14,7 +14,7 @@ namespace AthleteRegistrationService.Interfaces
 
         AthleteDto GetAthlete(int Bib);
 
-        List<AthleteDto> GetAllAthletes();
+        List<AthleteDto> GetAllAthletes(bool IncludeCrew=false);
         
     }
 }

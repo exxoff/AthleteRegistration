@@ -183,10 +183,10 @@ namespace AthleteRegistration.AthleteService {
         System.Threading.Tasks.Task<bool> StoreAthleteAsync(AthleteRegistration.AthleteService.AthleteDto athlete);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/GetAllAthletes", ReplyAction="http://tempuri.org/IAthleteService/GetAllAthletesResponse")]
-        System.Collections.Generic.List<AthleteRegistration.AthleteService.AthleteDto> GetAllAthletes();
+        System.Collections.Generic.List<AthleteRegistration.AthleteService.AthleteDto> GetAllAthletes(bool IncludeCrew);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/GetAllAthletes", ReplyAction="http://tempuri.org/IAthleteService/GetAllAthletesResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<AthleteRegistration.AthleteService.AthleteDto>> GetAllAthletesAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<AthleteRegistration.AthleteService.AthleteDto>> GetAllAthletesAsync(bool IncludeCrew);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/ExistingAthlete", ReplyAction="http://tempuri.org/IAthleteService/ExistingAthleteResponse")]
         AthleteRegistration.AthleteService.AthleteDto ExistingAthlete(int Bib);
@@ -260,12 +260,12 @@ namespace AthleteRegistration.AthleteService {
             return base.Channel.StoreAthleteAsync(athlete);
         }
         
-        public System.Collections.Generic.List<AthleteRegistration.AthleteService.AthleteDto> GetAllAthletes() {
-            return base.Channel.GetAllAthletes();
+        public System.Collections.Generic.List<AthleteRegistration.AthleteService.AthleteDto> GetAllAthletes(bool IncludeCrew) {
+            return base.Channel.GetAllAthletes(IncludeCrew);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<AthleteRegistration.AthleteService.AthleteDto>> GetAllAthletesAsync() {
-            return base.Channel.GetAllAthletesAsync();
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<AthleteRegistration.AthleteService.AthleteDto>> GetAllAthletesAsync(bool IncludeCrew) {
+            return base.Channel.GetAllAthletesAsync(IncludeCrew);
         }
         
         public AthleteRegistration.AthleteService.AthleteDto ExistingAthlete(int Bib) {

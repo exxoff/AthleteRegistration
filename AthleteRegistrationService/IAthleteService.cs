@@ -24,7 +24,7 @@ namespace AthleteRegistrationService
         bool StoreAthlete(AthleteDto athlete);
 
         [OperationContract]
-        List<AthleteDto> GetAllAthletes();
+        List<AthleteDto> GetAllAthletes(bool IncludeCrew=false);
 
         [OperationContract]
         AthleteDto ExistingAthlete(int Bib);

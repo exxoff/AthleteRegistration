@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BibEnabledConverter.cs" />
+    <Compile Include="Converters\CrewBibConverter.cs" />
     <Compile Include="Converters\FileInfoConverter.cs" />
     <Compile Include="Converters\IsSavedConverter.cs" />
     <Compile Include="Converters\ZeroToNullConverter.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Utils\IconResource.cs" />
     <Compile Include="Utils\ServiceHelper.cs" />
     <Compile Include="ViewModels\ExportCsvViewModel.cs" />
+    <Compile Include="ViewModels\LotteryViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Windows\ExportCsvWindow.xaml.cs">
       <DependentUpon>ExportCsvWindow.xaml</DependentUpon>
