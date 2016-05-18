@@ -99,5 +99,21 @@ namespace AthleteRegistration.Windows
         {
             hostInfo.DatabaseFile = GetDatabaseFile(cboDbType.SelectedItem.ToString());
         }
+
+        private void OpenSaveDiaolog_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+
+            var f = new Microsoft.Win32.OpenFileDialog();
+            f.FileName = new FileInfo(hostInfo.DatabaseFile).Name;
+            f.CheckFileExists = false;
+            f.Filter = "*.LiteDB|*.LiteDB";
+            f.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if ((bool)f.ShowDialog())
+            {
+                hostInfo.DatabaseFile = f.FileName;
+            }
+
+        }
     }
 }

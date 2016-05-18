@@ -14,9 +14,11 @@
                       WindowStartupLocation="CenterScreen"
                    Icon="../Images/moif.ico">
     <Window.Resources>
+        <RoutedCommand x:Key="OpenSaveDialog"/>
         <RoutedUICommand x:Key="StartHost"/>
     </Window.Resources>
     <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource OpenSaveDialog}" Executed="OpenSaveDiaolog_Executed"/>
         <CommandBinding Command="{StaticResource StartHost}" CanExecute="StartHost_CanExecute" Executed="StartHost_Executed"/>
     </Window.CommandBindings>
     <Grid>
@@ -36,7 +38,11 @@
 
         <TextBox Margin="5" Text="{Binding Address}" Grid.Column="1" VerticalContentAlignment="Center"/>
         <ComboBox x:Name="cboDbType" Margin="5" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding DatabaseType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  IsSynchronizedWithCurrentItem="True" SelectionChanged="cboDbType_SelectionChanged"/>
-        <TextBox Margin="5" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Text="{Binding DatabaseFile,UpdateSourceTrigger=PropertyChanged}"/>
+        <DockPanel Margin="5" Grid.Row="2" Grid.Column="1">
+            <Button DockPanel.Dock="Right" Margin="0,5,5,5" Content="..." Height="30" Width="30" Command="{StaticResource OpenSaveDialog}"/>
+            <TextBox Margin="5" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Text="{Binding DatabaseFile,UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
+        
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="1" Margin="10" Command="{StaticResource StartHost}" IsDefault="True">
             <DockPanel LastChildFill="True">
                 <Image Source="{Binding ShieldIcon}" Width="15" Height="15"/>

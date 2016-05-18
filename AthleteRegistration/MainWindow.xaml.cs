@@ -25,16 +25,7 @@ namespace AthleteRegistration
         {
 
 
-            viewModel = new MainViewModel()
-            {
-                CurrentCourse = new Course()
-                {
-                    Wave = "1",
-                    Caption = "LÅNG",
-                    Group = "Long"
-                },
-                IsCrew = false            
-            };
+            viewModel = new MainViewModel();
             
             msg = new SaveMessage();
 
@@ -204,7 +195,7 @@ namespace AthleteRegistration
 
         private void SubmitAthlete_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
         {
-            if (viewModel.IsNew)
+            if (viewModel.IsNew || !viewModel.IsAlive)
             {
                 e.CanExecute = false;
                 return;

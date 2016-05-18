@@ -105,6 +105,15 @@ namespace AthleteRegistration.ViewModels
         public MainViewModel()
         {
             IsNew = true;
+            CurrentCourse = new Course()
+            {
+                Wave = "1",
+                Caption = "LÅNG",
+                Group = "Long"
+            };
+
+            IsCrew = false;
+            IsAlive = true;
         }
 
         private string UppercaseFirst(string s)
