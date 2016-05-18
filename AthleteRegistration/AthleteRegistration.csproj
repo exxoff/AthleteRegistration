@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BibEnabledConverter.cs" />
+    <Compile Include="Converters\BoolToTextConverter.cs" />
     <Compile Include="Converters\CrewBibConverter.cs" />
     <Compile Include="Converters\FileInfoConverter.cs" />
     <Compile Include="Converters\IsSavedConverter.cs" />
@@ -193,9 +194,14 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\MOIF_logo.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\moif.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\new_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -38,13 +38,31 @@ namespace AthleteRegistration
             
             msg = new SaveMessage();
 
+
            InitializeComponent();
+
+            System.Timers.Timer CheckServiceTimer = new System.Timers.Timer(3000);
+            CheckServiceTimer.Elapsed += CheckServiceTimer_Elapsed;
+            CheckServiceTimer.Enabled = true;
 
             this.DataContext = viewModel;
             txtBib.Focus();
         }
 
-       
+        private void CheckServiceTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+                viewModel.IsAlive = client.IsAlive();
+            }
+            catch (Exception)
+            {
+
+                viewModel.IsAlive = false;
+            }
+            
+        }
+
         private void AnimationCompleted(object sender, EventArgs e)
         {
             if (viewModel.IsSaved != null)
@@ -109,7 +127,7 @@ namespace AthleteRegistration
 
         private void MenuOpenStartHostWindow_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.CanExecute = viewModel.IsAlive ? false : true;
         }
 
         private void MenuOpenCsvExportWindow_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
@@ -210,6 +228,16 @@ namespace AthleteRegistration
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             ((Control)sender).GetBindingExpression(TextBox.TextProperty).UpdateSource();
+        }
+
+        private void MenuOpenCsvExportWindow_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = viewModel.IsAlive;
+        }
+
+        private void MenuOpenLotteryWindow_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = viewModel.IsAlive;
         }
     }
 }

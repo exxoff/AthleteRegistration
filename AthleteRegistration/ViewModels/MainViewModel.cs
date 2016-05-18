@@ -94,6 +94,12 @@ namespace AthleteRegistration.ViewModels
 
         public bool IsNew { get; set; }
 
+        private bool isAlive;
+        public bool IsAlive
+        {
+            get { return isAlive; }
+            set { isAlive = value; OnPropertyChanged(); }
+        }
 
 
         public MainViewModel()

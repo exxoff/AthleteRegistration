@@ -31,6 +31,9 @@ namespace AthleteRegistrationService
 
         [OperationContract]
         AthleteDto GetNewAthlete();
+
+        [OperationContract]
+        bool IsAlive();
     }
 
 

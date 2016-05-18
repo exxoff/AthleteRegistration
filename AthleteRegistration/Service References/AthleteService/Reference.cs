@@ -199,6 +199,12 @@ namespace AthleteRegistration.AthleteService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/GetNewAthlete", ReplyAction="http://tempuri.org/IAthleteService/GetNewAthleteResponse")]
         System.Threading.Tasks.Task<AthleteRegistration.AthleteService.AthleteDto> GetNewAthleteAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/IsAlive", ReplyAction="http://tempuri.org/IAthleteService/IsAliveResponse")]
+        bool IsAlive();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAthleteService/IsAlive", ReplyAction="http://tempuri.org/IAthleteService/IsAliveResponse")]
+        System.Threading.Tasks.Task<bool> IsAliveAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -282,6 +288,14 @@ namespace AthleteRegistration.AthleteService {
         
         public System.Threading.Tasks.Task<AthleteRegistration.AthleteService.AthleteDto> GetNewAthleteAsync() {
             return base.Channel.GetNewAthleteAsync();
+        }
+        
+        public bool IsAlive() {
+            return base.Channel.IsAlive();
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsAliveAsync() {
+            return base.Channel.IsAliveAsync();
         }
     }
 }

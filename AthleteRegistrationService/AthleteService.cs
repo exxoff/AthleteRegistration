@@ -131,5 +131,10 @@ namespace AthleteRegistrationService
         {
             DbFilename = File;
         }
+
+        public bool IsAlive()
+        {
+            return true;
+        }
     }
 }

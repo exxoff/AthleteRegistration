@@ -15,12 +15,13 @@
 
                       WindowTransitionsEnabled="False"
                       WindowStartupLocation="CenterScreen"
-                   Icon="Images/moif.ico">
+                   Icon="Images/new_logo.png">
     <Window.Resources>
         <converters:IsSavedConverter x:Key="IsSavedConverter"/>
         <converters:ZeroToNullConverter x:Key="ZeroToNullConverter"/>
         <converters:BibEnabledConverter x:Key="BibEnabled"/>
-        
+        <converters:BoolToTextConverter x:Key="BoolToText"/>
+
         <Storyboard x:Key="ErrorAnimation">
             <DoubleAnimation Storyboard.TargetProperty="(TextBlock.Opacity)"
                              From="1" To="0" AutoReverse="false"
@@ -39,8 +40,8 @@
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource OpenStartHostWindow}" CanExecute="MenuOpenStartHostWindow_CanExecute" Executed="MenuOpenStartHostWindow_Executed"/>
-        <CommandBinding Command="{StaticResource OpenCsvExportWindow}" Executed="MenuOpenCsvExportWindow_Executed" />
-        <CommandBinding Command="{StaticResource OpenLotteryWindow}" Executed="MenuOpenLotteryWindow_Executed"/>
+        <CommandBinding Command="{StaticResource OpenCsvExportWindow}" Executed="MenuOpenCsvExportWindow_Executed" CanExecute="MenuOpenCsvExportWindow_CanExecute" />
+        <CommandBinding Command="{StaticResource OpenLotteryWindow}" Executed="MenuOpenLotteryWindow_Executed" CanExecute="MenuOpenLotteryWindow_CanExecute"/>
         <CommandBinding Command="{StaticResource SubmitAthlete}" CanExecute="SubmitAthlete_CanExecute" Executed="SubmitAthlete_Executed" />
     </Window.CommandBindings>
     <DockPanel>
@@ -101,6 +102,7 @@
             <DockPanel Grid.Column="2" Grid.Row="2">
                 
                 <Button Content="Spara" Command="{StaticResource SubmitAthlete}" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" FontSize="30" DockPanel.Dock="Right" IsDefault="True"/>
+                <TextBlock Text="{Binding IsAlive,StringFormat='{} Server reachable: {0}',Converter={StaticResource BoolToText}}"/>
                 <!--<CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Checked="Crew_Checked" Unchecked="Crew_Checked" IsChecked="{Binding IsCrew}"/>-->
                 <CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" IsChecked="{Binding IsCrew,TargetNullValue=false,ValidatesOnDataErrors=True}"/>
             </DockPanel>
