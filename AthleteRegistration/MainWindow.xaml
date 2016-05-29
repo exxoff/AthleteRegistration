@@ -105,7 +105,7 @@
                 <Button Content="Spara" Command="{StaticResource SubmitAthlete}" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" FontSize="30" DockPanel.Dock="Right" IsDefault="True"/>
                 <!--<TextBlock Text="{Binding IsAlive,StringFormat='{} Server reachable: {0}',Converter={StaticResource BoolToText}}"/>-->
                 <!--<CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Checked="Crew_Checked" Unchecked="Crew_Checked" IsChecked="{Binding IsCrew}"/>-->
-                <CheckBox Content="Jag är funktionär" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" IsChecked="{Binding IsCrew,TargetNullValue=false,ValidatesOnDataErrors=True}"/>
+                <CheckBox Content="Jag är funktionär" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" IsChecked="{Binding IsCrew,TargetNullValue=false,ValidatesOnDataErrors=True}"/>
             </DockPanel>
             
 
@@ -116,7 +116,7 @@
         <metro:WindowCommands>
            
             <!--<Ellipse Fill="{Binding IsAlive,Converter={StaticResource IsSavedConverter}}" Width="20" Height="20"/>-->
-            <Rectangle Fill="Black" Height="20" Width="20" Visibility="{Binding IsAlive,Converter={StaticResource BoolToVisibility}}">
+            <Rectangle Fill="Red" Height="20" Width="20" Visibility="{Binding IsAlive,Converter={StaticResource BoolToVisibility}}" ToolTip="Ingen kontakt med servern!">
                 <Rectangle.OpacityMask>
                     <VisualBrush Visual="{StaticResource appbar_warning}" Stretch="Fill" />
                 </Rectangle.OpacityMask>

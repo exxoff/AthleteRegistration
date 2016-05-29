@@ -18,18 +18,18 @@
         <CommandBinding Command="{StaticResource CreateWinnerList}" CanExecute="CreateList_CanExecute" Executed="CreateList_Executed"/>
     </Window.CommandBindings>
     <Grid>
-        <DockPanel>
+        <DockPanel Margin="5">
             <DockPanel Margin="5" DockPanel.Dock="Top" LastChildFill="True">
                 <Label Content="ANTAL" FontSize="10" FontWeight="Bold" Margin="0,0,15,0"/>
                 <Button Content="Skapa dragningslista" DockPanel.Dock="Right" Command="{StaticResource CreateWinnerList}"/>
                 <TextBox Text="{Binding NumberOfWinners}" Margin="0,0,5,0"/>
                 
             </DockPanel>
-            <ListBox Margin="0,5,0,5" ItemsSource="{Binding Winners}">
+            <ListBox Margin="0,5,5,5" ItemsSource="{Binding Winners}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <DockPanel Background="AntiqueWhite" x:Name="Rowpanel">
-                            <TextBlock DockPanel.Dock="Left" Text="{Binding Bib,Converter={StaticResource CrewBibConverter}}" Margin="5,0,10,0"/>
+                        <DockPanel Background="AntiqueWhite"  x:Name="Rowpanel" >
+                            <TextBlock DockPanel.Dock="Left" Text="{Binding Bib,Converter={StaticResource CrewBibConverter}}" FontSize="14" Margin="5,0"/>
                             <TextBlock FontSize="14">
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}{0} {1}">
@@ -41,12 +41,14 @@
                         </DockPanel>
                         <DataTemplate.Triggers>
                             <Trigger Property="ListBox.AlternationIndex" Value="0">
-                                <Setter Property="Background" Value="AliceBlue" TargetName="Rowpanel"/>
+                                <Setter Property="Background" Value="Green" TargetName="Rowpanel"/>
                             </Trigger>
                             <Trigger Property="ListBox.AlternationIndex" Value="1">
                                 <Setter Property="Background" Value="DeepPink" TargetName="Rowpanel"/>
                             </Trigger>
- 
+                            <!--<Trigger Property="ListBox.IsSelected" Value="true">
+                                <Setter Property="Foreground" Value="HotPink" TargetName="Rowpanel" />
+                            </Trigger>-->
                         </DataTemplate.Triggers>
                     </DataTemplate>
 
