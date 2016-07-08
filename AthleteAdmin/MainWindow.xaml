@@ -1,0 +1,71 @@
+﻿<metro:MetroWindow x:Class="AthleteAdmin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:AthleteAdmin"
+        xmlns:types ="clr-namespace:AthleteAdmin.UserTypes"
+        mc:Ignorable="d"
+        Title="Athlete Registration Manager" Height="450" Width="725"
+        BorderThickness="1"
+                   ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <RoutedCommand x:Key="StartServerCommand" />
+        <types:MessageTextManager x:Key="messageMgr"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource StartServerCommand}" CanExecute="StartServer_CanExecute" Executed="StartServer_Executed"/>
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Serverkonfiguration">
+            <DockPanel Margin="5" LastChildFill="True">
+                <Button metro:ButtonHelper.CornerRadius="8" DockPanel.Dock="Right" Content="Starta server" Margin="10" Command="{StaticResource StartServerCommand}"/>
+
+                <!--<TextBox Text="{Binding Port}" metro:TextBoxHelper.Watermark="Port" DockPanel.Dock="Right" Margin="10" MinWidth="60" FontSize="14" VerticalContentAlignment="Center"/>
+                <TextBox Text="{Binding DatabaseFile}" metro:TextBoxHelper.Watermark="Filnamn" DockPanel.Dock="Left" Margin="10" FontSize="14" VerticalContentAlignment="Center"/>-->
+
+
+            </DockPanel>
+
+        </GroupBox>
+        <GroupBox Header="Serverinformation" Grid.Row="1">
+            <!--<ListBox Margin="5" ItemsSource="{Binding NetworkInfoList}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <Image/>
+                            <TextBlock Text="{Binding Description}"/>
+                            <TextBlock Text="{Binding IpAddress}"/>
+                        </DockPanel>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>-->
+            <DataGrid Margin="5" ItemsSource="{Binding NetworkInfoList}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="IP-adress" Width="Auto" Binding="{Binding IpAddress}" />
+                    <DataGridTextColumn Header="Beskrivning" Width="Auto" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Nätverkstyp" Width="Auto" Binding="{Binding NicType}" />
+
+
+                </DataGrid.Columns>
+                
+            </DataGrid>
+        </GroupBox>
+        <GroupBox Header="Meddelanden" Grid.Row="2">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+            <DockPanel Margin="5" Grid.Row="1" LastChildFill="True">
+                <ListBox Margin="5" ItemsSource="{Binding Messages}"  Loaded="Messages_Loaded" Foreground="BlueViolet"/>
+            </DockPanel>
+            </ScrollViewer>
+        </GroupBox>
+        
+
+    </Grid>
+</metro:MetroWindow>
