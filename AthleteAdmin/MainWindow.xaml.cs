@@ -1,4 +1,5 @@
 ﻿using AthleteAdmin.UserTypes;
+using AthleteRegistrationService;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -35,7 +36,7 @@ namespace AthleteAdmin
             hostInfo = new HostInfo();
             hostInfo.Port = int.Parse(ConfigurationManager.AppSettings["ServerPort"]);
             hostInfo.DatabaseFile = GetDatabaseFile("LiteDB");
-            if (DatabaseFileExists() > 0)
+            if (DatabaseFileExists())
             {
                 var response = MessageBox.Show(string.Format("Det finns redan databaser, vill du använda en gammal fil"), "Filer hittade", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
@@ -59,10 +60,10 @@ namespace AthleteAdmin
 
         }
 
-        private int DatabaseFileExists()
+        private bool DatabaseFileExists()
         {
 
-            return Directory.GetFiles(Path.GetTempPath().ToString(),"*.aReg").Length;
+            return (Directory.GetFiles(Path.GetTempPath().ToString(),"*.aReg").Length) > 0 ? true : false;
 
         }
 
@@ -148,7 +149,11 @@ namespace AthleteAdmin
                 hostProxy.SetDatabaseType("LiteDB");
                 hostProxy.SetDatabaseFile(hostInfo.DatabaseFile);
                 hostProxy.StartQueueTimer();
-                MessageManager.Messages.Add(string.Format("Servicen startad, lyssnar på port {0}",hostInfo.Port));
+            if(DataHelper.Messages == null)
+            {
+                DataHelper.Messages = new System.Collections.ObjectModel.ObservableCollection<string>();
+            }
+                DataHelper.Messages.Add(string.Format("Servicen startad, lyssnar på port {0}",hostInfo.Port));
 
         }
 
@@ -157,7 +162,8 @@ namespace AthleteAdmin
         {
             ListBox txtMessages = sender as ListBox;
 
-            txtMessages.ItemsSource = MessageManager.Messages;
+            txtMessages.ItemsSource = DataHelper.Messages;
+            //txtMessages.ItemsSource = MessageManager.Messages;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -101,6 +102,7 @@ namespace AthleteRegistration.ViewModels
             set { isAlive = value; OnPropertyChanged(); }
         }
 
+        public bool HideEmailField { get; set; } = false;
 
         public MainViewModel()
         {
@@ -114,6 +116,20 @@ namespace AthleteRegistration.ViewModels
 
             IsCrew = false;
             IsAlive = true;
+
+            try
+            {
+                string _tempSetting = ConfigurationManager.AppSettings["HideEmailField"];
+
+                if (_tempSetting == "1" )
+                {
+                    HideEmailField = true;
+                }
+            }
+            catch (ArgumentException)
+            {
+
+            }
         }
 
         private string UppercaseFirst(string s)

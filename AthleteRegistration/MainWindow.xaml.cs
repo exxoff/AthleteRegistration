@@ -1,9 +1,13 @@
-﻿using AthleteRegistration.UserTypes;
+﻿
+using AthleteRegistration.UserTypes;
+using AthleteRegistration.Utils;
 using AthleteRegistration.ViewModels;
 using AthleteRegistration.Windows;
+using AthleteRegistrationService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,12 +21,15 @@ namespace AthleteRegistration
 
         
         private MainViewModel viewModel;
-        public AthleteService.AthleteServiceClient client = new AthleteService.AthleteServiceClient();
+        //public AthleteService.AthleteServiceClient client = new AthleteService.AthleteServiceClient();
+        public IAthleteService client;
         private SaveMessage msg;
         private List<Course> listOfCourses;
 
         public MainWindow()
         {
+
+            ServiceHelper.ServerAddress = "net.tcp://localhost:9090/AthleteRegistration";
 
 
             viewModel = new MainViewModel();
@@ -32,7 +39,7 @@ namespace AthleteRegistration
 
            InitializeComponent();
 
-            System.Timers.Timer CheckServiceTimer = new System.Timers.Timer(3000);
+            System.Timers.Timer CheckServiceTimer = new System.Timers.Timer(1000);
             CheckServiceTimer.Elapsed += CheckServiceTimer_Elapsed;
             CheckServiceTimer.Enabled = true;
 
@@ -44,9 +51,16 @@ namespace AthleteRegistration
         {
             try
             {
+                string serviceAddress = ServiceHelper.ServerAddress;
+                var binding = new NetTcpBinding();
+
+                var channelFactory = new ChannelFactory<IAthleteService>(binding, serviceAddress);
+
+                client = channelFactory.CreateChannel();
                 viewModel.IsAlive = client.IsAlive();
+                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 viewModel.IsAlive = false;
@@ -136,12 +150,15 @@ namespace AthleteRegistration
         private void SubmitAthlete_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
 
+            var channelFactory = ServiceHelper.GetFactory();
+            var cclient = channelFactory.CreateChannel();
             if (viewModel.IsCrew == true)
             {
                 viewModel.Bib = -1;
             }
 
-            AthleteService.AthleteDto remoteAthlete = new AthleteService.AthleteDto()
+            AthleteDto remoteAthlete = new AthleteDto()
+            
             {
                 Bib = viewModel.Bib,
                 FirstName = viewModel.FirstName,
@@ -154,7 +171,7 @@ namespace AthleteRegistration
             try
             {
 
-                AthleteService.AthleteDto _existingAthlete = client.ExistingAthlete(viewModel.Bib);
+                AthleteDto _existingAthlete = client.ExistingAthlete(viewModel.Bib);
                 if (_existingAthlete != null)
                 {
                     if (MessageBox.Show(string.Format("Nummer {0} har redan registrerats av {1} {2}. Vill du uppdatera?", _existingAthlete.Bib, _existingAthlete.FirstName, _existingAthlete.LastName),

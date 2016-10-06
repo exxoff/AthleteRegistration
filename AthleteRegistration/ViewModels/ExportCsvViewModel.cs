@@ -6,10 +6,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using AthleteRegistration.AthleteService;
 using System.IO;
 using AthleteRegistration.Utils;
 using AthleteRegistration.UserTypes;
+using System.ServiceModel;
 
 namespace AthleteRegistration.ViewModels
 {
@@ -44,7 +44,12 @@ namespace AthleteRegistration.ViewModels
 
             try
             {
-                Athletes = new AthleteServiceClient().GetAllAthletes(false).ToAthleteCollection();
+
+
+                var channelFactory = ServiceHelper.GetFactory();
+                var client = channelFactory.CreateChannel();
+                Athletes = client.GetAllAthletes(false).ToAthleteCollection();
+                channelFactory.Close();
                 NumberOfAthletes = Athletes.Count();
             }
             catch (Exception)

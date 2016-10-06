@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AthleteRegistration"
-        xmlns:srv="clr-namespace:AthleteRegistration.AthleteService"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:converters="clr-namespace:AthleteRegistration.Converters"
         mc:Ignorable="d"
@@ -89,7 +88,8 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Epostadress (ej obligatorisk)" FontSize="22" Margin="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+            <GroupBox Header="Epostadress (ej obligatorisk)" FontSize="22" Margin="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding HideEmailField,Converter={StaticResource BoolToVisibility}}">
+                <!--<GroupBox Header="Epostadress (ej obligatorisk)" FontSize="22" Margin="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding ShowEmailField,Converter={StaticResource BoolToVisibility}}">-->
                 <TextBox Text="{Binding EMailAddress, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
             </GroupBox>
 

@@ -1,6 +1,7 @@
 ﻿using LiteDB;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,17 @@ namespace AthleteRegistrationService
 {
     public static class DataHelper
     {
+        //public static ObservableCollection<string> Messages;
+
+        private static ObservableCollection<string> messages;
+
+        public static ObservableCollection<string> Messages
+        {
+            get { return messages; }
+            set { messages = value; }
+        }
+
+
         //public static void SaveAthlete(AthleteDto athlete)
         //{
         //    using(var db = new LiteDatabase("C:\\Temp\\_athletes.LiteDB"))
@@ -20,14 +32,14 @@ namespace AthleteRegistrationService
         //        {
         //            col.Update(athlete);
         //            Console.WriteLine("{0} uppdaterades", athlete.FirstName);
-                   
+
 
         //        }
         //        else
         //        {
         //            col.Insert(athlete);
         //            Console.WriteLine("Ny deltagare, startummer {2}, {0} {1} lades till.", athlete.FirstName,athlete.LastName,athlete.Bib);
-                    
+
         //        }
         //    }
         //}
