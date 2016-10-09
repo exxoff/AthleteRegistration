@@ -1,9 +1,11 @@
-﻿using System;
+﻿using AthleteRegistrationService.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AthleteRegistrationService
 {
@@ -34,6 +36,12 @@ namespace AthleteRegistrationService
 
         [OperationContract]
         bool IsAlive();
+
+        [OperationContract]
+        Task<IEnumerable<AthleteDto>> TempGetAllAthletesAsync(IDbClient client, bool IncludeCrew = false);
+
+        [OperationContract]
+        Task<AthleteDto> TempExistingAthleteAsync(IDbClient client, int Bib);
     }
 
 

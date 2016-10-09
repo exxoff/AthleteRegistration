@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AthleteRegistration", "AthleteRegistration\AthleteRegistration.csproj", "{923944C1-3CEA-4AA4-AF6C-39BDA864658F}"
 EndProject
@@ -13,6 +13,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AthleteRegistrationService", "AthleteRegistrationService\AthleteRegistrationService.csproj", "{021A8787-4DE3-4451-A452-035C2F4CF0AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AthleteAdmin", "AthleteAdmin\AthleteAdmin.csproj", "{28829F15-EE43-46C8-88AB-0020EAC0687E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AthleteRegistratrionServiceTests", "AthleteRegistratrionServiceTests\AthleteRegistratrionServiceTests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{28829F15-EE43-46C8-88AB-0020EAC0687E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28829F15-EE43-46C8-88AB-0020EAC0687E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28829F15-EE43-46C8-88AB-0020EAC0687E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

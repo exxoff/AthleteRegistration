@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace AthleteRegistrationService
 {
@@ -71,6 +72,8 @@ namespace AthleteRegistrationService
 
         public bool StoreAthlete(AthleteDto athlete)
         {
+
+            if (athlete == null) { throw new ArgumentNullException("Athlete cannot be null"); }
             try
             {
                 if (AthleteQueue == null)
@@ -95,6 +98,13 @@ namespace AthleteRegistrationService
             return client.GetAllAthletes(IncludeCrew);
         }
 
+        public async Task<IEnumerable<AthleteDto>> TempGetAllAthletesAsync(IDbClient client, bool IncludeCrew = false)
+        {
+            
+            return await Task.Run(() => client.GetAllAthletes(IncludeCrew));
+        }
+
+
         public AthleteDto ExistingAthlete(int Bib)
         {
 
@@ -110,6 +120,19 @@ namespace AthleteRegistrationService
             
         }
 
+
+        public async Task<AthleteDto> TempExistingAthleteAsync(IDbClient client, int Bib)
+        {
+
+            if (Bib == -1)
+            {
+                return null;
+            }
+
+            return await Task.Run(()=> client.GetAthlete(Bib));
+
+
+        }
         private IDbClient GetDbClient()
         {
             if (client == null)
@@ -136,5 +159,7 @@ namespace AthleteRegistrationService
         {
             return true;
         }
+
+
     }
 }

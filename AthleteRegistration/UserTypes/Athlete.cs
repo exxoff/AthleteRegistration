@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AthleteRegistration.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AthleteRegistration.UserTypes
 {
-    public class Athlete 
+    public class Athlete : IAthlete
     {
         public int Bib { get; set; }
         public string FirstName { get; set; }
@@ -16,6 +17,7 @@ namespace AthleteRegistration.UserTypes
         public string WaveNumber { get; set; }
         public string Group { get; set; }
         public string EMail { get; set; }
+
 
 
   
