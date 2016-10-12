@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AthleteAdmin.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AthleteAdmin.UserTypes
 {
-    public class Netinfo:INotifyPropertyChanged
+    public class NetInfo : INotifyPropertyChanged, INetInfo
     {
 
         private string ipAddress;

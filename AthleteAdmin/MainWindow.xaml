@@ -9,7 +9,8 @@
         mc:Ignorable="d"
         Title="Athlete Registration Manager" Height="450" Width="725"
         BorderThickness="1"
-                   ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <Window.Resources>
         <RoutedCommand x:Key="StartServerCommand" />
         <types:MessageTextManager x:Key="messageMgr"/>
@@ -47,7 +48,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>-->
-            <DataGrid Margin="5" ItemsSource="{Binding NetworkInfoList}" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid Margin="5" ItemsSource="{Binding hostInfo.NetworkInfoList}" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="IP-adress" Width="Auto" Binding="{Binding IpAddress}" />
                     <DataGridTextColumn Header="Beskrivning" Width="Auto" Binding="{Binding Description}" />

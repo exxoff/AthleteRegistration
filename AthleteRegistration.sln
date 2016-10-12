@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AthleteAdmin", "AthleteAdmi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AthleteRegistratrionServiceTests", "AthleteRegistratrionServiceTests\AthleteRegistratrionServiceTests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AthleteAdminTests", "AthleteAdminTests\AthleteAdminTests.csproj", "{ABB0231E-B6CA-47F2-B488-EBD7032FB673}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Projects", "Test Projects", "{8A055BBA-9EDE-4A81-88C9-D20449EE3AF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,8 +46,16 @@ Global
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABB0231E-B6CA-47F2-B488-EBD7032FB673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABB0231E-B6CA-47F2-B488-EBD7032FB673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABB0231E-B6CA-47F2-B488-EBD7032FB673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABB0231E-B6CA-47F2-B488-EBD7032FB673}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8EDF4429-251A-416D-BB68-93F227191BCF} = {8A055BBA-9EDE-4A81-88C9-D20449EE3AF9}
+		{ABB0231E-B6CA-47F2-B488-EBD7032FB673} = {8A055BBA-9EDE-4A81-88C9-D20449EE3AF9}
 	EndGlobalSection
 EndGlobal

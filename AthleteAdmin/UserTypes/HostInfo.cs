@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AthleteAdmin.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AthleteAdmin.UserTypes
 {
-    public class HostInfo : INotifyPropertyChanged
+    public class HostInfo : INotifyPropertyChanged, IHostInfo
     {
         
         private int port;
@@ -32,13 +33,14 @@ namespace AthleteAdmin.UserTypes
             set { adresses = value; OnPropertyChanged(); }
         }
 
-        private List<Netinfo> networkInfoList;
-        public List<Netinfo> NetworkInfoList
+        private List<INetInfo> networkInfoList;
+        public List<INetInfo> NetworkInfoList
         {
             get { return networkInfoList; }
             set { networkInfoList = value; OnPropertyChanged(); }
         }
 
+ 
 
         public HostInfo()
         {
@@ -49,7 +51,7 @@ namespace AthleteAdmin.UserTypes
 
             if(NetworkInfoList == null)
             {
-                NetworkInfoList = new List<Netinfo>();
+                NetworkInfoList = new List<INetInfo>();
             }
         }
 

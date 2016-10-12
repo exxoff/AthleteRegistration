@@ -35,8 +35,10 @@ namespace AthleteRegistration
             //SimpleIoc.Default.Register<ICsvFileWriter, CsvFileWriter>();
 
 
-            MainViewModel viewModel = new MainViewModel(ServiceLocator.Current.GetInstance<IAthlete>());
-            MainWindow = new MainWindow(viewModel);
+            //MainViewModel viewModel = new MainViewModel(ServiceLocator.Current.GetInstance<IAthlete>());
+            //MainWindow = new MainWindow(viewModel);
+
+            MainWindow = new MainWindow();
 
         }
     }
