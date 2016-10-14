@@ -1,4 +1,6 @@
-﻿using AthleteRegistrationService.Interfaces;
+﻿using AthleteMessageService.Interfaces;
+using AthleteMessageService.UserTypes;
+using AthleteRegistrationService.Interfaces;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,8 @@ namespace AthleteRegistrationService
 {
     public class LiteDBClient : IDbClient
     {
+
+        IMessageRepository repo = MessageRepository.Instance;
         public string DbFilename { get; set; }
 
         public List<AthleteDto> GetAllAthletes(bool IncludeCrew=false)
@@ -61,6 +65,8 @@ namespace AthleteRegistrationService
                 else
                 {
                     col.Insert(Athlete);
+                    MessageClient client = new MessageClient();
+                    client.SendMessage(string.Format("Ny deltagare, startummer {2}, {0} {1} lades till.", Athlete.FirstName, Athlete.LastName, Athlete.Bib));
                     Console.WriteLine("Ny deltagare, startummer {2}, {0} {1} lades till.", Athlete.FirstName, Athlete.LastName, Athlete.Bib);
 
                 }

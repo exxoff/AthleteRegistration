@@ -1,5 +1,7 @@
 ﻿using AthleteAdmin.Interfaces;
 using AthleteAdmin.UserTypes;
+using AthleteAdmin.ViewModels;
+using AthleteMessageService.UserTypes;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -13,17 +15,23 @@ namespace AthleteAdminTests
     [TestFixture]
     public class AthleteAdminTests
     {
+
+
         [Test]
-        public void OpenFileDialogReturnsString()
+        public void MainViewModel_HostInfo_DatabaseFile_Is_Valid_()
         {
-            Mock<IDialogService> dsMock = new Mock<IDialogService>();
 
-            dsMock.Setup(ds => ds.FileOpenDialog(It.IsAny<string>())).Returns("string");
-            //IDialogService ds = new DialogService();
+            Mock<IDialogService> dService = new Mock<IDialogService>();
+            dService.Setup(ds => ds.DisplayYesNoMessageBoxDialog(
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                false)).Returns(true);
 
-            string returnPath = dsMock.Object.FileOpenDialog("");
-            // TODO: Add your test code here
-            Assert.IsInstanceOf<string>(returnPath);
+            dService.Setup(ds => ds.FileOpenDialog()).Returns("C:\\Test\\Test.aReg");
+            MainViewModel model = new MainViewModel(new HostInfo(),dService.Object);
+
+            Assert.AreEqual("C:\\Test\\Test.aReg", model.hostInfo.DatabaseFile);
+
         }
     }
 }

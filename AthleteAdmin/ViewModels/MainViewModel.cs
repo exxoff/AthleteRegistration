@@ -1,38 +1,138 @@
 ﻿using AthleteAdmin.Interfaces;
 using AthleteAdmin.UserTypes;
+using AthleteMessageService.Interfaces;
+using AthleteMessageService.UserTypes;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 
 namespace AthleteAdmin.ViewModels
 {
-    /// <summary>
-    /// This class contains properties that a View can data bind to.
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
-    public class MainViewModel : ViewModelBase
+
+    
+
+    public class MainViewModel:INotifyPropertyChanged
     {
+
+        #region Properties and variables
+        private int port;
+        public int Port
+        {
+            get { return port; }
+            set
+            {
+                port = value;
+                OnPropertyChanged();
+                hostInfo.Port = port;
+                StartServiceCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private string databaseFile;
+        public string DatabaseFile
+        {
+            get { return databaseFile; }
+            set
+            {
+                databaseFile = value;
+                OnPropertyChanged();
+                hostInfo.DatabaseFile = databaseFile;
+                StartServiceCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public IMessageRepository messageRepository { get; set; }
+
         public IHostInfo hostInfo { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the MvvmViewModel1 class.
-        /// </summary>
+
+        private IDialogService dialogService;
+
+        public RelayCommand StartServiceCommand { get; set; }
+        public IDialogService DialogService
+        {
+            get
+            {
+                if(dialogService == null)
+                {
+                    dialogService = new DialogService();
+                }
+                return dialogService;
+            }
+            set { dialogService = value; }
+        }
+
+        
+        private ObservableCollection<String> messages;
+
+        
+        
+        public ObservableCollection<String> Messages
+        {
+            get
+            {
+                if(messages == null)
+                {
+                    messages = new ObservableCollection<string>();
+                }
+                return messages; }
+            set
+            {
+                messages = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        #endregion
+
+
         public MainViewModel(IHostInfo hostInfo,IDialogService dialogService)
         {
+            if(messageRepository == null)
+            {
+                this.messageRepository = MessageRepository.Instance;
+            }
+            //this.messageRepository = messageRepository;
+            StartServiceCommand = new RelayCommand(() => StartService(),() => HostInfoIsValid());
+            this.DialogService = dialogService;
             this.hostInfo = hostInfo;
-            hostInfo.Port = int.Parse(ConfigurationManager.AppSettings["ServerPort"]);
-            hostInfo.DatabaseFile = GetDatabaseFile("LiteDB");
-            //hostInfo.Addresses = 
+
+            int _portNumber;
+            if(int.TryParse(ConfigurationManager.AppSettings["ServerPort"], out _portNumber))
+            {
+               Port = _portNumber;
+            }
+            hostInfo.DatabaseFile = GetDatabaseFile();
             GetAllLocalIPv4();
+
+
+        }
+
+        private bool HostInfoIsValid()
+        {
+            if(hostInfo.Port > 0 && hostInfo.Port <= Int16.MaxValue)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool UseOldFile(string Message, string Title)
+        {
+            return  DialogService.DisplayYesNoMessageBoxDialog(Message, Title, false);
         }
 
         private bool DatabaseFileExists()
@@ -60,23 +160,34 @@ namespace AthleteAdmin.ViewModels
                             _n.IpAddress = ip.Address.ToString();
                             _n.Description = item.Name;
                             hostInfo.NetworkInfoList.Add(_n);
-                            //TODO: Remove below
-                            //ipAddrList.Add(ip.Address.ToString());
                         }
                     }
                 }
             }
-            //return ipAddrList;
         }
 
-        private string GetDatabaseFile(string databaseType)
+        private string GetDatabaseFile()
         {
+
+            if (DatabaseFileExists())
+            {
+                // Fråga om man vill använda en gammal fil
+                if(UseOldFile("Files exist, do you want to use an old file?", "File exist"))
+                {
+                    // Om ja
+                    return hostInfo.DatabaseFile = DialogService.FileOpenDialog();
+                }
+ 
+                //Om nej/Cancel
+            }
             return string.Format("{0}{1}.aReg", Path.GetTempPath(), Guid.NewGuid().ToString());
 
         }
 
         private void StartService()
         {
+
+            StartMessageRepository();
             ServiceHost host = new ServiceHost(typeof(AthleteRegistrationService.AthleteService));
             string address = string.Format("net.tcp://localhost:{0}/AthleteRegistration", hostInfo.Port.ToString());
             Binding binding = new NetTcpBinding();
@@ -86,10 +197,40 @@ namespace AthleteAdmin.ViewModels
 
             host.Open();
 
+            messageRepository.ReceiveMessage(string.Format("Server startad, lyssnar på port {0}",hostInfo.Port));
             var hostProxy = new AthleteRegistrationService.AthleteService();
             hostProxy.SetDatabaseType("LiteDB");
             hostProxy.SetDatabaseFile(hostInfo.DatabaseFile);
             hostProxy.StartQueueTimer();
         }
+
+        private void StartMessageRepository()
+        {
+            ServiceHost host = new ServiceHost(typeof(MessageRepository));
+            string address = "net.pipe://localhost/WALLABY";
+            Binding binding = new NetNamedPipeBinding();
+            binding.Name = "MessageReceiver";
+            Type contract = typeof(IMessageRepository);
+
+            host.AddServiceEndpoint(contract, binding, address);
+
+            host.Open();
+
+            messageRepository.ReceiveMessage("Meddelandeservicen startad.");
+
+            
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+
     }
 }

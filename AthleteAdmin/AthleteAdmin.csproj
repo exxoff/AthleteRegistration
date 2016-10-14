@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -135,6 +136,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AthleteMessageService\AthleteMessageService.csproj">
+      <Project>{7B2C8CD2-5A48-4778-BEA2-47027CC8530D}</Project>
+      <Name>AthleteMessageService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AthleteRegistrationService\AthleteRegistrationService.csproj">
       <Project>{021a8787-4de3-4451-a452-035c2f4cf0aa}</Project>
       <Name>AthleteRegistrationService</Name>

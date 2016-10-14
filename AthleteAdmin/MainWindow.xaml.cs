@@ -115,13 +115,13 @@ namespace AthleteAdmin
 
         //}
 
-        private void StartServer_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
+        //private void StartServer_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        //{
+        //    e.CanExecute = true;
+        //}
 
-        private void StartServer_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
+        //private void StartServer_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
 
 
             //ServiceHost host = new ServiceHost(typeof(AthleteRegistrationService.AthleteService));
@@ -143,15 +143,15 @@ namespace AthleteAdmin
             //}
             //    DataHelper.Messages.Add(string.Format("Servicen startad, lyssnar på port {0}",hostInfo.Port));
 
-        }
+        //}
 
 
-        private void Messages_Loaded(object sender, RoutedEventArgs e)
-        {
-            ListBox txtMessages = sender as ListBox;
+        //private void Messages_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    ListBox txtMessages = sender as ListBox;
 
-            txtMessages.ItemsSource = DataHelper.Messages;
-            //txtMessages.ItemsSource = MessageManager.Messages;
-        }
+        //    txtMessages.ItemsSource = DataHelper.Messages;
+        //    //txtMessages.ItemsSource = MessageManager.Messages;
+        //}
     }
 }

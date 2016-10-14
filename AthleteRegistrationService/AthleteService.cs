@@ -34,6 +34,8 @@ namespace AthleteRegistrationService
                 AthleteQueue = new Queue<AthleteDto>();
             }
 
+
+
             System.Timers.Timer queueTimer = new System.Timers.Timer();
             queueTimer.Interval = 2000;
             queueTimer.Elapsed += QueueTimer_Elapsed;

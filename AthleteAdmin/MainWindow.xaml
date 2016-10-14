@@ -12,12 +12,9 @@
         ResizeMode="CanResizeWithGrip"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <Window.Resources>
-        <RoutedCommand x:Key="StartServerCommand" />
+
         <types:MessageTextManager x:Key="messageMgr"/>
     </Window.Resources>
-    <Window.CommandBindings>
-        <CommandBinding Command="{StaticResource StartServerCommand}" CanExecute="StartServer_CanExecute" Executed="StartServer_Executed"/>
-    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="130"/>
@@ -26,28 +23,15 @@
         </Grid.RowDefinitions>
         <GroupBox Header="Serverkonfiguration">
             <DockPanel Margin="5" LastChildFill="True">
-                <Button metro:ButtonHelper.CornerRadius="8" DockPanel.Dock="Right" Content="Starta server" Margin="10" Command="{StaticResource StartServerCommand}"/>
-
-                <!--<TextBox Text="{Binding Port}" metro:TextBoxHelper.Watermark="Port" DockPanel.Dock="Right" Margin="10" MinWidth="60" FontSize="14" VerticalContentAlignment="Center"/>
-                <TextBox Text="{Binding DatabaseFile}" metro:TextBoxHelper.Watermark="Filnamn" DockPanel.Dock="Left" Margin="10" FontSize="14" VerticalContentAlignment="Center"/>-->
-
+                <Button metro:ButtonHelper.CornerRadius="8" 
+                        DockPanel.Dock="Right" Content="Starta server" 
+                        Margin="10" Command="{Binding StartServiceCommand}"/>
 
             </DockPanel>
 
         </GroupBox>
         <GroupBox Header="Serverinformation" Grid.Row="1">
-            <!--<ListBox Margin="5" ItemsSource="{Binding NetworkInfoList}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <Image/>
-                            <TextBlock Text="{Binding Description}"/>
-                            <TextBlock Text="{Binding IpAddress}"/>
-                        </DockPanel>
 
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>-->
             <DataGrid Margin="5" ItemsSource="{Binding hostInfo.NetworkInfoList}" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="IP-adress" Width="Auto" Binding="{Binding IpAddress}" />
@@ -62,7 +46,7 @@
         <GroupBox Header="Meddelanden" Grid.Row="2">
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
             <DockPanel Margin="5" Grid.Row="1" LastChildFill="True">
-                <ListBox Margin="5" ItemsSource="{Binding Messages,UpdateSourceTrigger=PropertyChanged}"  Loaded="Messages_Loaded" Foreground="BlueViolet"/>
+                <ListBox Margin="5" ItemsSource="{Binding messageRepository.Messages,UpdateSourceTrigger=PropertyChanged}"  Foreground="BlueViolet"/>
             </DockPanel>
             </ScrollViewer>
         </GroupBox>

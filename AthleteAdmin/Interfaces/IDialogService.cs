@@ -8,6 +8,7 @@ namespace AthleteAdmin.Interfaces
 {
     public interface IDialogService
     {
-        string FileOpenDialog(string Defaultpath);
+        string FileOpenDialog();
+        bool DisplayYesNoMessageBoxDialog(string Message, string Title, bool showCancelButton);
     }
 }

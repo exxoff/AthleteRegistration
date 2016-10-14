@@ -1,6 +1,8 @@
 ﻿using AthleteAdmin.Interfaces;
 using AthleteAdmin.UserTypes;
 using AthleteAdmin.ViewModels;
+using AthleteMessageService.Interfaces;
+using AthleteMessageService.UserTypes;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using System;
@@ -30,6 +32,8 @@ namespace AthleteAdmin
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<IHostInfo, HostInfo>();
+            SimpleIoc.Default.Register<IDialogService, DialogService>();
+            //SimpleIoc.Default.Register<IMessageRepository, MessageRepository>();
             MainWindow = new MainWindow();
         }
     }
