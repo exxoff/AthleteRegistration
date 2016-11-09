@@ -52,22 +52,22 @@ namespace AthleteRegistrationService
                 if(Athlete.Bib == -1)
                 {
                     col.Insert(Athlete);
-                    Console.WriteLine("Funktionär, {0} {1} registrerades.",Athlete.FirstName,Athlete.LastName);
+                    MessageClient.SendMessage(string.Format("Funktionär, {0} {1} registrerades.",Athlete.FirstName,Athlete.LastName));
                     return;
                 }
                 if (col.Count(x => x.Bib.Equals(Athlete.Bib)) > 0)
                 {
                     col.Update(Athlete);
-                    Console.WriteLine("{0} uppdaterades. ({1} {2}, {3} bana.)", Athlete.Bib,Athlete.FirstName,Athlete.LastName,Athlete.Group);
+                    MessageClient.SendMessage(string.Format("{0} uppdaterades. ({1} {2}, {3} bana.)", Athlete.Bib,Athlete.FirstName,Athlete.LastName,Athlete.Group));
 
 
                 }
                 else
                 {
                     col.Insert(Athlete);
-                    MessageClient client = new MessageClient();
-                    client.SendMessage(string.Format("Ny deltagare, startummer {2}, {0} {1} lades till.", Athlete.FirstName, Athlete.LastName, Athlete.Bib));
-                    Console.WriteLine("Ny deltagare, startummer {2}, {0} {1} lades till.", Athlete.FirstName, Athlete.LastName, Athlete.Bib);
+                    //MessageClient client = new MessageClient();
+                    MessageClient.SendMessage(string.Format("Ny deltagare, startummer {2}, {0} {1} lades till.", Athlete.FirstName, Athlete.LastName, Athlete.Bib));
+                    //Console.WriteLine("Ny deltagare, startummer {2}, {0} {1} lades till.", Athlete.FirstName, Athlete.LastName, Athlete.Bib);
 
                 }
             }

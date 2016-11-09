@@ -118,6 +118,7 @@ namespace AthleteRegistration.ViewModels
             get { return selectedCourseIndex; }
             set { selectedCourseIndex = value; OnPropertyChanged(); }
         }
+        public bool EnableEmailField { get; private set; }
         #endregion
 
         [PreferredConstructor]
@@ -140,17 +141,6 @@ namespace AthleteRegistration.ViewModels
 
             ResetViewModel();
 
-            //IsNew = true;
-            //IsCrew = false;
-            //IsAlive = true;
-            //IsBibFocused = true;
-
-            //CurrentCourse = new Course()
-            //{
-            //    Wave = "1",
-            //    Caption = "LÅNG",
-            //    Group = "Long"
-            //};
 
             LoadCourses();
             GetEmailVisibility();
@@ -253,11 +243,12 @@ namespace AthleteRegistration.ViewModels
         {
             try
             {
-                string _tempSetting = ConfigurationManager.AppSettings["HideEmailField"];
+                string _tempSetting = ConfigurationManager.AppSettings["EnableEmailField"];
 
                 if (_tempSetting == "1")
                 {
-                    HideEmailField = true;
+                    //HideEmailField = true;
+                    EnableEmailField = true;
                 }
             }
             catch (ArgumentException)
@@ -322,6 +313,8 @@ namespace AthleteRegistration.ViewModels
                 throw new NotImplementedException();
             }
         }
+
+        
 
         public string this[string columnName]
         {

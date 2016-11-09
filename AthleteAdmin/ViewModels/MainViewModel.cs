@@ -22,9 +22,9 @@ using System.ServiceModel.Channels;
 namespace AthleteAdmin.ViewModels
 {
 
-    
 
-    public class MainViewModel:INotifyPropertyChanged
+
+    public class MainViewModel : INotifyPropertyChanged
     {
 
         #region Properties and variables
@@ -65,7 +65,7 @@ namespace AthleteAdmin.ViewModels
         {
             get
             {
-                if(dialogService == null)
+                if (dialogService == null)
                 {
                     dialogService = new DialogService();
                 }
@@ -74,20 +74,18 @@ namespace AthleteAdmin.ViewModels
             set { dialogService = value; }
         }
 
-        
-        private ObservableCollection<String> messages;
 
-        
-        
+        private ObservableCollection<String> messages;
         public ObservableCollection<String> Messages
         {
             get
             {
-                if(messages == null)
+                if (messages == null)
                 {
                     messages = new ObservableCollection<string>();
                 }
-                return messages; }
+                return messages;
+            }
             set
             {
                 messages = value;
@@ -95,35 +93,43 @@ namespace AthleteAdmin.ViewModels
             }
         }
 
+        private bool isStartButton;
+        public bool IsStartButton
+        {
+            get { return isStartButton; }
+            set { isStartButton = value; OnPropertyChanged(); }
+        }
 
+
+        private ServiceHost host;
         #endregion
 
 
-        public MainViewModel(IHostInfo hostInfo,IDialogService dialogService)
+        public MainViewModel(IHostInfo hostInfo, IDialogService dialogService)
         {
-            if(messageRepository == null)
+            if (messageRepository == null)
             {
                 this.messageRepository = MessageRepository.Instance;
             }
             //this.messageRepository = messageRepository;
-            StartServiceCommand = new RelayCommand(() => StartService(),() => HostInfoIsValid());
+            StartServiceCommand = new RelayCommand(() => StartService(), () => HostInfoIsValid());
             this.DialogService = dialogService;
             this.hostInfo = hostInfo;
 
             int _portNumber;
-            if(int.TryParse(ConfigurationManager.AppSettings["ServerPort"], out _portNumber))
+            if (int.TryParse(ConfigurationManager.AppSettings["ServerPort"], out _portNumber))
             {
-               Port = _portNumber;
+                Port = _portNumber;
             }
             hostInfo.DatabaseFile = GetDatabaseFile();
             GetAllLocalIPv4();
-
-
+            StartMessageRepository();
+            IsStartButton = true;
         }
 
         private bool HostInfoIsValid()
         {
-            if(hostInfo.Port > 0 && hostInfo.Port <= Int16.MaxValue)
+            if (hostInfo.Port > 0 && hostInfo.Port <= Int16.MaxValue)
             {
                 return true;
             }
@@ -132,7 +138,7 @@ namespace AthleteAdmin.ViewModels
 
         private bool UseOldFile(string Message, string Title)
         {
-            return  DialogService.DisplayYesNoMessageBoxDialog(Message, Title, false);
+            return DialogService.DisplayYesNoMessageBoxDialog(Message, Title, false);
         }
 
         private bool DatabaseFileExists()
@@ -143,12 +149,12 @@ namespace AthleteAdmin.ViewModels
         }
 
         private void GetAllLocalIPv4()
-        
+
         {
             //List<string> ipAddrList = new List<string>();
             foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
             {
-                
+
                 if (item.OperationalStatus == OperationalStatus.Up)
                 {
                     foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
@@ -172,12 +178,12 @@ namespace AthleteAdmin.ViewModels
             if (DatabaseFileExists())
             {
                 // Fråga om man vill använda en gammal fil
-                if(UseOldFile("Files exist, do you want to use an old file?", "File exist"))
+                if (UseOldFile("Files exist, do you want to use an old file?", "File exist"))
                 {
                     // Om ja
                     return hostInfo.DatabaseFile = DialogService.FileOpenDialog();
                 }
- 
+
                 //Om nej/Cancel
             }
             return string.Format("{0}{1}.aReg", Path.GetTempPath(), Guid.NewGuid().ToString());
@@ -187,27 +193,41 @@ namespace AthleteAdmin.ViewModels
         private void StartService()
         {
 
-            StartMessageRepository();
-            ServiceHost host = new ServiceHost(typeof(AthleteRegistrationService.AthleteService));
-            string address = string.Format("net.tcp://localhost:{0}/AthleteRegistration", hostInfo.Port.ToString());
-            Binding binding = new NetTcpBinding();
-            Type contract = typeof(AthleteRegistrationService.IAthleteService);
+            if (IsStartButton)
+            {
 
-            host.AddServiceEndpoint(contract, binding, address);
 
-            host.Open();
 
-            messageRepository.ReceiveMessage(string.Format("Server startad, lyssnar på port {0}",hostInfo.Port));
-            var hostProxy = new AthleteRegistrationService.AthleteService();
-            hostProxy.SetDatabaseType("LiteDB");
-            hostProxy.SetDatabaseFile(hostInfo.DatabaseFile);
-            hostProxy.StartQueueTimer();
+                host = new ServiceHost(typeof(AthleteRegistrationService.AthleteService));
+                string address = string.Format("net.tcp://localhost:{0}/AthleteRegistration", hostInfo.Port.ToString());
+                Binding binding = new NetTcpBinding();
+                Type contract = typeof(AthleteRegistrationService.IAthleteService);
+
+                host.AddServiceEndpoint(contract, binding, address);
+
+                host.Open();
+
+                IsStartButton = false;
+                messageRepository.ReceiveMessage(string.Format("Server startad, lyssnar på port {0}", hostInfo.Port));
+                var hostProxy = new AthleteRegistrationService.AthleteService();
+                hostProxy.SetDatabaseType("LiteDB");
+                hostProxy.SetDatabaseFile(hostInfo.DatabaseFile);
+                hostProxy.StartQueueTimer();
+            }
+            else
+            {
+                host.Close();
+                messageRepository.ReceiveMessage("Server stoppad.");
+                IsStartButton = true;
+            }
         }
+
+
 
         private void StartMessageRepository()
         {
             ServiceHost host = new ServiceHost(typeof(MessageRepository));
-            string address = "net.pipe://localhost/WALLABY";
+            string address = "net.pipe://localhost/AthleteRegMessage";
             Binding binding = new NetNamedPipeBinding();
             binding.Name = "MessageReceiver";
             Type contract = typeof(IMessageRepository);
@@ -218,7 +238,7 @@ namespace AthleteAdmin.ViewModels
 
             messageRepository.ReceiveMessage("Meddelandeservicen startad.");
 
-            
+
         }
 
 

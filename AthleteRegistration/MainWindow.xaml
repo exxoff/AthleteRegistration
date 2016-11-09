@@ -95,7 +95,8 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Epostadress (ej obligatorisk)" FontSize="22" Margin="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding HideEmailField,Converter={StaticResource BoolToVisibility}}">
+            <!--<GroupBox Header="Epostadress (ej obligatorisk)" FontSize="22" Margin="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="{Binding HideEmailField}" Visibility="{Binding HideEmailField,Converter={StaticResource BoolToVisibility}}">-->
+            <GroupBox Header="Epostadress (ej obligatorisk)" FontSize="22" Margin="5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="{Binding EnableEmailField}">
                 <TextBox Text="{Binding EMailAddress, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20"/>
             </GroupBox>
 

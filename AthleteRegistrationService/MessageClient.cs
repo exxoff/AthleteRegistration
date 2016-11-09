@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace AthleteRegistrationService
 {
-    public class MessageClient
+    public static class MessageClient
     {
                
 
 
-        public void SendMessage(string Message)
+        public static void SendMessage(string Message)
         {
 
-            string address = "net.pipe://localhost/WALLABY";
+            string address = "net.pipe://localhost/AthleteRegMessage";
             Binding binding = new NetNamedPipeBinding();
 
             var factory = new ChannelFactory<IMessageRepository>(binding, address);

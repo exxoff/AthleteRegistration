@@ -92,6 +92,7 @@
     <Compile Include="UserTypes\Netinfo.cs" />
     <Compile Include="UserTypes\DialogService.cs" />
     <Compile Include="UserTypes\TextFormat.cs" />
+    <Compile Include="Utils\BoolToButtonTitleConverter.cs" />
     <Compile Include="Utils\ViewModelLocator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
